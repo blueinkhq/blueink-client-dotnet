@@ -1,0 +1,8 @@
+C:\Users\awh1t\source\repos\Starturn\STiSolution\Blueink.Client.Net.v2\bin\Release\Blueink.Client.Net.v2.dll
+C:\Users\awh1t\source\repos\Starturn\STiSolution\Blueink.Client.Net.v2\bin\Release\Blueink.Client.Net.v2.pdb
+C:\Users\awh1t\source\repos\Starturn\STiSolution\Blueink.Client.Net.v2\bin\Release\Newtonsoft.Json.dll
+C:\Users\awh1t\source\repos\Starturn\STiSolution\Blueink.Client.Net.v2\obj\Release\Blueink.Client.Net.v2.csproj.AssemblyReference.cache
+C:\Users\awh1t\source\repos\Starturn\STiSolution\Blueink.Client.Net.v2\obj\Release\Blueink.Client.Net.v2.csproj.CoreCompileInputs.cache
+C:\Users\awh1t\source\repos\Starturn\STiSolution\Blueink.Client.Net.v2\obj\Release\Blueink.Client.Net.v2.csproj.CopyComplete
+C:\Users\awh1t\source\repos\Starturn\STiSolution\Blueink.Client.Net.v2\obj\Release\Blueink.Client.Net.v2.dll
+C:\Users\awh1t\source\repos\Starturn\STiSolution\Blueink.Client.Net.v2\obj\Release\Blueink.Client.Net.v2.pdb
