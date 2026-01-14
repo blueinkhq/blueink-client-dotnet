@@ -10,15 +10,28 @@ using Blueink.Client.Net.v2.Model;
 
 namespace Blueink.Client.Net.v2.Resource
 {
+    /// <summary>
+    /// Provides access to Packet-related API operations.
+    /// Packets represent individual signing requests within a bundle.
+    /// </summary>
     public class PacketResource
     {
         private readonly IClientService service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PacketResource"/> class.
+        /// </summary>
+        /// <param name="service">The client service instance.</param>
         public PacketResource(IClientService service)
         {
             this.service = service;
         }
 
+        /// <summary>
+        /// Retrieves the Certificate of Evidence (COE) for a packet.
+        /// </summary>
+        /// <param name="packetId">The unique identifier of the packet.</param>
+        /// <returns>A request object that can be executed to retrieve the packet COE.</returns>
         public virtual GetRequest RetrieveCOE(string packetId)
         {
             return new GetRequest(service, packetId);

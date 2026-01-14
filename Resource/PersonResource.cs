@@ -10,20 +10,41 @@ using System.Web;
 
 namespace Blueink.Client.Net.v2.Resource
 {
+    /// <summary>
+    /// Provides access to Person-related API operations.
+    /// Persons represent contacts/signers in the Blueink system.
+    /// </summary>
     public class PersonResource
     {
         private readonly IClientService service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PersonResource"/> class.
+        /// </summary>
+        /// <param name="service">The client service instance.</param>
         public PersonResource(IClientService service)
         {
             this.service = service;
         }
 
+        /// <summary>
+        /// Lists all persons with default pagination (page 1, 50 per page).
+        /// </summary>
+        /// <returns>A request object that can be executed to retrieve persons.</returns>
         public virtual ListRequest List()
         {
             return new ListRequest(service);
         }
 
+        /// <summary>
+        /// Lists persons with specified filters and pagination.
+        /// </summary>
+        /// <param name="page">The page number to retrieve.</param>
+        /// <param name="per_page">The number of results per page.</param>
+        /// <param name="search">Search term to filter persons.</param>
+        /// <param name="email">Filter by email address.</param>
+        /// <param name="phone">Filter by phone number.</param>
+        /// <returns>A request object that can be executed to retrieve persons.</returns>
         public virtual ListRequest List(int? page, int? per_page,string search, string email, string phone)
         {
             return new ListRequest(service,page,per_page, search, email, phone);

@@ -10,22 +10,42 @@ using Blueink.Client.Net.v2.ResponseModel;
 
 namespace Blueink.Client.Net.v2.Resource
 {
+    /// <summary>
+    /// Provides access to Webhook-related API operations.
+    /// Webhooks allow you to receive real-time notifications about events in your Blueink account.
+    /// </summary>
     public class WebhookResource
     {
         private const string Resource = "webhooks";
 
         private readonly IClientService service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WebhookResource"/> class.
+        /// </summary>
+        /// <param name="service">The client service instance.</param>
         public WebhookResource(IClientService service)
         {
             this.service = service;
         }
 
+        /// <summary>
+        /// Lists all webhooks with default pagination.
+        /// </summary>
+        /// <returns>A request object that can be executed to retrieve webhooks.</returns>
         public virtual ListRequest List()
         {
             return new ListRequest(service);
         }
 
+        /// <summary>
+        /// Lists webhooks with specified filters and pagination.
+        /// </summary>
+        /// <param name="page">The page number to retrieve.</param>
+        /// <param name="per_page">The number of results per page.</param>
+        /// <param name="enabled">Filter by enabled status.</param>
+        /// <param name="eventtype">Filter by event type.</param>
+        /// <returns>A request object that can be executed to retrieve webhooks.</returns>
         public virtual ListRequest List(int? page, int? per_page,bool? enabled,EventType? eventtype)
         {
             return new ListRequest(service, page, per_page, enabled, eventtype);
@@ -929,7 +949,7 @@ namespace Blueink.Client.Net.v2.Resource
             public override string BuildUriRequest()
             {
                 List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
-                if (String.IsNullOrWhiteSpace(this.Webhook) && ValidationHelper.IsValidUUID(this.Webhook))
+                if (!String.IsNullOrWhiteSpace(this.Webhook) && ValidationHelper.IsValidUUID(this.Webhook))
                     list.Add(new KeyValuePair<string, string>("webhook", this.Webhook));
                 if (this.EventType.HasValue)
                     list.Add(new KeyValuePair<string, string>("event_type", EnumTypeHelper.ConvertEventTypeToString(this.EventType.Value)));
@@ -1311,7 +1331,7 @@ namespace Blueink.Client.Net.v2.Resource
 
             public override string RestPath
             {
-                get { return String.Format("persons/{0}/", WebhookExtraHeaderId); }
+                get { return String.Format("webhooks/headers/{0}/", WebhookExtraHeaderId); }
             }
 
             public override string HttpMethod

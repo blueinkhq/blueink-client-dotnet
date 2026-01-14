@@ -11,20 +11,51 @@ using System.Text;
 
 namespace Blueink.Client.Net.v2.Resource
 {
+    /// <summary>
+    /// Provides access to Bundle-related API operations.
+    /// Bundles are collections of documents that are sent to one or more signers.
+    /// </summary>
     public class BundleResource
     {
         private readonly IClientService service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BundleResource"/> class.
+        /// </summary>
+        /// <param name="service">The client service instance.</param>
         public BundleResource(IClientService service)
         {
             this.service = service;
         }
 
+        /// <summary>
+        /// Lists all bundles with default pagination (page 1, 50 per page).
+        /// </summary>
+        /// <returns>A request object that can be executed to retrieve bundles.</returns>
         public virtual ListBundleRequest ListBundles()
         {
             return new ListBundleRequest(service);
         }
 
+        /// <summary>
+        /// Lists bundles with specified filters and pagination.
+        /// </summary>
+        /// <param name="page">The page number to retrieve.</param>
+        /// <param name="per_page">The number of results per page.</param>
+        /// <param name="search">Search term to filter bundles.</param>
+        /// <param name="tag">Filter by tag.</param>
+        /// <param name="template">Filter by template ID.</param>
+        /// <param name="createdBefore">Filter bundles created before this date.</param>
+        /// <param name="createdAfter">Filter bundles created after this date.</param>
+        /// <param name="sentBefore">Filter bundles sent before this date.</param>
+        /// <param name="sentAfter">Filter bundles sent after this date.</param>
+        /// <param name="completedBefore">Filter bundles completed before this date.</param>
+        /// <param name="completedAfter">Filter bundles completed after this date.</param>
+        /// <param name="ordering">The ordering of results.</param>
+        /// <param name="status">Filter by bundle status.</param>
+        /// <param name="statusIn">Filter by multiple statuses.</param>
+        /// <param name="tagIn">Filter by multiple tags.</param>
+        /// <returns>A request object that can be executed to retrieve bundles.</returns>
         public virtual ListBundleRequest ListBundles(
             int? page,
             int? per_page,

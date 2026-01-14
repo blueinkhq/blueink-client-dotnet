@@ -8,15 +8,27 @@ using System.Threading.Tasks;
 
 namespace Blueink.Client.Net.v2.Resource
 {
+    /// <summary>
+    /// Provides access to Rate Limit API operations.
+    /// Allows checking the current API rate limit status.
+    /// </summary>
     public class RateLimitResource
     {
         private readonly IClientService service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RateLimitResource"/> class.
+        /// </summary>
+        /// <param name="service">The client service instance.</param>
         public RateLimitResource(IClientService service)
         {
             this.service = service;
         }
 
+        /// <summary>
+        /// Checks the current API rate limit status.
+        /// </summary>
+        /// <returns>A request object that can be executed to retrieve the rate limit status.</returns>
         public virtual CheckRateLimitStatusRequest CheckRateLimitStatus()
         {
             return new CheckRateLimitStatusRequest(service);

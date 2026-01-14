@@ -7,19 +7,38 @@ using System.Threading.Tasks;
 
 namespace Blueink.Client.Net.v2.Resource
 {
+    /// <summary>
+    /// Provides access to Template-related API operations.
+    /// Templates are reusable document and envelope configurations.
+    /// </summary>
     public class TemplateResource
     {
         private readonly IClientService service;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TemplateResource"/> class.
+        /// </summary>
+        /// <param name="service">The client service instance.</param>
         public TemplateResource(IClientService service)
         {
             this.service = service;
         }
+
+        /// <summary>
+        /// Lists all envelope templates with default pagination (page 1, 50 per page).
+        /// </summary>
+        /// <returns>A request object that can be executed to retrieve envelope templates.</returns>
         public virtual ListEnvelopeTemplateRequest ListEnvelopeTemplate()
         {
             return new ListEnvelopeTemplateRequest(service);
         }
 
+        /// <summary>
+        /// Lists envelope templates with specified pagination.
+        /// </summary>
+        /// <param name="page">The page number to retrieve.</param>
+        /// <param name="per_page">The number of results per page.</param>
+        /// <returns>A request object that can be executed to retrieve envelope templates.</returns>
         public virtual ListEnvelopeTemplateRequest ListEnvelopeTemplate(
             int? page,
             int? per_page)
