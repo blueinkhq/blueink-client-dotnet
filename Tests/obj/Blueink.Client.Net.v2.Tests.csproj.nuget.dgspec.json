@@ -1,0 +1,210 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/tylerlacy/dev/blueink-client-dotnet/Tests/Blueink.Client.Net.v2.Tests.csproj": {}
+  },
+  "projects": {
+    "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj",
+        "projectName": "Blueink.Client.Net.v2",
+        "projectPath": "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj",
+        "packagesPath": "/Users/tylerlacy/.nuget/packages/",
+        "outputPath": "/Users/tylerlacy/dev/blueink-client-dotnet/obj/",
+        "projectStyle": "PackageReference",
+        "crossTargeting": true,
+        "configFilePaths": [
+          "/Users/tylerlacy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net462",
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          },
+          "net462": {
+            "targetAlias": "net462",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.122/libexec/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        },
+        "net462": {
+          "targetAlias": "net462",
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.122/libexec/sdk/8.0.122/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/tylerlacy/dev/blueink-client-dotnet/Tests/Blueink.Client.Net.v2.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/tylerlacy/dev/blueink-client-dotnet/Tests/Blueink.Client.Net.v2.Tests.csproj",
+        "projectName": "Blueink.Client.Net.v2.Tests",
+        "projectPath": "/Users/tylerlacy/dev/blueink-client-dotnet/Tests/Blueink.Client.Net.v2.Tests.csproj",
+        "packagesPath": "/Users/tylerlacy/.nuget/packages/",
+        "outputPath": "/Users/tylerlacy/dev/blueink-client-dotnet/Tests/obj/",
+        "projectStyle": "PackageReference",
+        "crossTargeting": true,
+        "configFilePaths": [
+          "/Users/tylerlacy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net462",
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj": {
+                "projectPath": "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj"
+              }
+            }
+          },
+          "net462": {
+            "targetAlias": "net462",
+            "projectReferences": {
+              "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj": {
+                "projectPath": "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.14.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.122/libexec/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        },
+        "net462": {
+          "targetAlias": "net462",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            },
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.14.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.122/libexec/sdk/8.0.122/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

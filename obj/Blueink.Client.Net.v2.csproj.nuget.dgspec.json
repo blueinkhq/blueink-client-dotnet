@@ -1,66 +1,87 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\awh1t\\source\\repos\\Starturn\\STiSolution\\Blueink.Client.Net.v2\\Blueink.Client.Net.v2.csproj": {}
+    "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\awh1t\\source\\repos\\Starturn\\STiSolution\\Blueink.Client.Net.v2\\Blueink.Client.Net.v2.csproj": {
+    "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\awh1t\\source\\repos\\Starturn\\STiSolution\\Blueink.Client.Net.v2\\Blueink.Client.Net.v2.csproj",
+        "projectUniqueName": "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj",
         "projectName": "Blueink.Client.Net.v2",
-        "projectPath": "C:\\Users\\awh1t\\source\\repos\\Starturn\\STiSolution\\Blueink.Client.Net.v2\\Blueink.Client.Net.v2.csproj",
-        "packagesPath": "C:\\Users\\awh1t\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\awh1t\\source\\repos\\Starturn\\STiSolution\\Blueink.Client.Net.v2\\obj\\",
+        "projectPath": "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj",
+        "packagesPath": "/Users/tylerlacy/.nuget/packages/",
+        "outputPath": "/Users/tylerlacy/dev/blueink-client-dotnet/obj/",
         "projectStyle": "PackageReference",
-        "skipContentFileWrite": true,
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\Offline Packages",
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
+        "crossTargeting": true,
         "configFilePaths": [
-          "C:\\Users\\awh1t\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.2.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "/Users/tylerlacy/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net462"
+          "net462",
+          "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 20.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\DevExpress 20.2\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          },
           "net462": {
+            "targetAlias": "net462",
             "projectReferences": {}
           }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
         }
       },
       "frameworks": {
-        "net462": {
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "Newtonsoft.Json": {
               "target": "Package",
-              "version": "[13.0.4, )"
+              "version": "[13.0.3, )"
             }
-          }
-        }
-      },
-      "runtimes": {
-        "win": {
-          "#import": []
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.122/libexec/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
         },
-        "win-x64": {
-          "#import": []
-        },
-        "win-x86": {
-          "#import": []
+        "net462": {
+          "targetAlias": "net462",
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.122/libexec/sdk/8.0.122/RuntimeIdentifierGraph.json"
         }
       }
     }

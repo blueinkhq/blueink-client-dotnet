@@ -1,92 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F54E8BF7-452E-48B2-9553-2D24347571DA}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <!-- Multi-target to support both .NET Framework and .NET 8 (LTS) for cross-platform compatibility -->
+    <TargetFrameworks>net462;net8.0</TargetFrameworks>
     <RootNamespace>Blueink.Client.Net.v2</RootNamespace>
     <AssemblyName>Blueink.Client.Net.v2</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <LangVersion>latest</LangVersion>
+    <!-- Prevent auto-generation of AssemblyInfo to avoid conflicts with Properties/AssemblyInfo.cs -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+
+  <!-- Debug configuration -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+
+  <!-- Release configuration -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+
+  <!-- Exclude Tests directory from main project compilation -->
   <ItemGroup>
-    <Reference Include="System" />
+    <Compile Remove="Tests\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+
+  <!-- Framework assembly references needed for .NET Framework 4.6.2 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
+
+  <!-- Common package references for all target frameworks -->
   <ItemGroup>
-    <Compile Include="BlueinkService.cs" />
-    <Compile Include="Common\BaseClientService.cs" />
-    <Compile Include="Common\ClientServiceRequest.cs" />
-    <Compile Include="Common\IClientService.cs" />
-    <Compile Include="Common\IClientServiceRequest.cs" />
-    <Compile Include="Common\LargeDataFormUrlEncodedContent.cs" />
-    <Compile Include="BlueinkApiException.cs" />
-    <Compile Include="Helper\BundleHelper.cs" />
-    <Compile Include="Helper\EnumTypeHelper.cs" />
-    <Compile Include="Helper\FileHelper.cs" />
-    <Compile Include="Helper\PersonHelper.cs" />
-    <Compile Include="Helper\ValidationHelper.cs" />
-    <Compile Include="Model\ResponseModel\Bundles.cs" />
-    <Compile Include="Model\Enums.cs" />
-    <Compile Include="Model\Error.cs" />
-    <Compile Include="Model\ResponseModel\Person.cs" />
-    <Compile Include="Model\ResponseModel\RateLimit.cs" />
-    <Compile Include="Model\RequestModel\Bundles.cs" />
-    <Compile Include="Model\RequestModel\Person.cs" />
-    <Compile Include="Model\RequestModel\Webhook.cs" />
-    <Compile Include="Model\ResponseModel\Template.cs" />
-    <Compile Include="Model\ResponseModel\Webhook.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource\BundleResource.cs" />
-    <Compile Include="Resource\PacketResource.cs" />
-    <Compile Include="Resource\PersonResource.cs" />
-    <Compile Include="Resource\RateLimitResource.cs" />
-    <Compile Include="Resource\TemplateResource.cs" />
-    <Compile Include="Resource\WebhookResource.cs" />
-    <Compile Include="Serializer\NewtonsoftJsonSerializer.cs" />
-    <Compile Include="Serializer\Serializer.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>13.0.4</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)$(ConfigurationName)\$(TargetFileName)"</PostBuildEvent>
-  </PropertyGroup>
+
+  <!-- Note: .NET 8.0 includes System.Net.Http, System.ComponentModel.DataAnnotations, etc. in the framework -->
 </Project>
