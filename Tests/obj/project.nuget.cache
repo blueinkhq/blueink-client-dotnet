@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "zaU6U+SZDiAg2qfiAlsDCO2yXQyz9BphjQD8WFKXyN6j2+wRarfZaMACwIDBtc+0wHsU3qeNRfcj9VlCvgcJ5g==",
+  "dgSpecHash": "qfsWHiAwbj7TJlevqo2z4TCnxI8pvlSrj38+vcRkLGcceXcVNL1Bxy4jj4+zzgc+wPkabK/eB0cFT69klDoz9A==",
   "success": true,
   "projectFilePath": "/Users/tylerlacy/dev/blueink-client-dotnet/Tests/Blueink.Client.Net.v2.Tests.csproj",
   "expectedPackageFiles": [
@@ -19,6 +19,7 @@
     "/Users/tylerlacy/.nuget/packages/nuget.frameworks/6.5.0/nuget.frameworks.6.5.0.nupkg.sha512",
     "/Users/tylerlacy/.nuget/packages/nunit/3.14.0/nunit.3.14.0.nupkg.sha512",
     "/Users/tylerlacy/.nuget/packages/nunit3testadapter/4.5.0/nunit3testadapter.4.5.0.nupkg.sha512",
+    "/Users/tylerlacy/.nuget/packages/system.componentmodel.annotations/5.0.0/system.componentmodel.annotations.5.0.0.nupkg.sha512",
     "/Users/tylerlacy/.nuget/packages/system.diagnostics.eventlog/6.0.0/system.diagnostics.eventlog.6.0.0.nupkg.sha512",
     "/Users/tylerlacy/.nuget/packages/system.reflection.metadata/1.6.0/system.reflection.metadata.1.6.0.nupkg.sha512",
     "/Users/tylerlacy/.nuget/packages/system.runtime.compilerservices.unsafe/4.5.3/system.runtime.compilerservices.unsafe.4.5.3.nupkg.sha512",

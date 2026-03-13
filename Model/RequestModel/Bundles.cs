@@ -34,6 +34,30 @@ namespace Blueink.Client.Net.v2.RequestModel
         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
         public virtual int? OffsetY { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("v_pattern",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual int? VPattern { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("v_min",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual int? VMin { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("v_max",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual int? VMax { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("v_attachment_types",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual IList<string> VAttachmentTypes { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("format",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual string Format { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("initial_value",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual object InitialValue { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("editors")]
         [Newtonsoft.Json.JsonRequired]
         public virtual IList<string> Editors { get; set; }
@@ -112,6 +136,18 @@ namespace Blueink.Client.Net.v2.RequestModel
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public virtual int? VMax { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("v_attachment_types",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual IList<string> VAttachmentTypes { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("format",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual string Format { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("initial_value",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual object InitialValue { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("editors",
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -494,6 +530,15 @@ namespace Blueink.Client.Net.v2.RequestModel
         {
             get => _team;
             set => _team = value.NullIfWhiteSpace();
+        }
+        private string _signingBrand = null;
+        [Newtonsoft.Json.JsonPropertyAttribute("signing_brand",
+        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+        DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string SigningBrand 
+        {
+            get => _signingBrand;
+            set => _signingBrand = value.NullIfWhiteSpace();
         }
 
         private BundleStatus? _status = null;

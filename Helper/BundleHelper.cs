@@ -20,6 +20,7 @@ namespace Blueink.Client.Net.v2.Helper
         public string RequesterEmail { get; set; }
         public string CustomKey { get; set; }
         public string Team { get; set; }
+        public string SigningBrand { get; set; }
         public BundleStatus? Status { get; set; }
         public bool IsTest { get; set; }
         public bool InOrder { get; set; }
@@ -294,6 +295,7 @@ namespace Blueink.Client.Net.v2.Helper
             bundle_out.CCEmails = new List<string>(this.CCEmails);
             bundle_out.CustomKey = this.CustomKey;
             bundle_out.Team = this.Team;
+            bundle_out.SigningBrand = this.SigningBrand;
             bundle_out.Status = this.Status;
 
             return bundle_out;
@@ -326,6 +328,7 @@ namespace Blueink.Client.Net.v2.Helper
             bundle_out.CCEmails = new List<string>(this.CCEmails);
             bundle_out.CustomKey = this.CustomKey;
             bundle_out.Team = this.Team;
+            bundle_out.SigningBrand = this.SigningBrand;
             bundle_out.Status = this.Status;
 
             bundle_out.EnvelopeTemplate = new EnvelopeTemplate
