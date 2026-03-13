@@ -5,10 +5,10 @@
   },
   "projects": {
     "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj": {
-      "version": "1.0.0",
+      "version": "1.0.2",
       "restore": {
         "projectUniqueName": "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj",
-        "projectName": "Blueink.Client.Net.v2",
+        "projectName": "Blueink.Client.Net",
         "projectPath": "/Users/tylerlacy/dev/blueink-client-dotnet/Blueink.Client.Net.v2.csproj",
         "packagesPath": "/Users/tylerlacy/.nuget/packages/",
         "outputPath": "/Users/tylerlacy/dev/blueink-client-dotnet/obj/",
@@ -18,8 +18,8 @@
           "/Users/tylerlacy/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net462",
-          "net8.0"
+          "net8.0",
+          "netstandard2.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
@@ -29,8 +29,8 @@
             "targetAlias": "net8.0",
             "projectReferences": {}
           },
-          "net462": {
-            "targetAlias": "net462",
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
             "projectReferences": {}
           }
         },
@@ -67,20 +67,35 @@
           },
           "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.122/libexec/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
         },
-        "net462": {
-          "targetAlias": "net462",
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
           "dependencies": {
-            "Microsoft.NETFramework.ReferenceAssemblies": {
+            "NETStandard.Library": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[1.0.3, )",
+              "version": "[2.0.3, )",
               "autoReferenced": true
             },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             }
           },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
           "runtimeIdentifierGraphPath": "/opt/homebrew/Cellar/dotnet@8/8.0.122/libexec/sdk/8.0.122/RuntimeIdentifierGraph.json"
         }
       }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Blueink.Client.Net.v2.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e8f6e8c5a84edc3bc77b3224f84c09da6d044aca")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3725099cc701f38d6075a7900bc2c188b45fadef")]
 [assembly: System.Reflection.AssemblyProductAttribute("Blueink.Client.Net.v2.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Blueink.Client.Net.v2.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

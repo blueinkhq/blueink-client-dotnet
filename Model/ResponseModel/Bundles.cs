@@ -112,6 +112,8 @@ namespace Blueink.Client.Net.v2.ResponseModel
         public virtual string CustomKey { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("team")]
         public virtual string Team { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("signing_brand")]
+        public virtual string SigningBrand { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("is_test")]
         public virtual bool IsTest { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("status")]
