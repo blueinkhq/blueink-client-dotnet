@@ -1,0 +1,7 @@
+## Build output directories
+bin/
+obj/
+
+## NuGet
+*.nupkg
+*.snupkg
