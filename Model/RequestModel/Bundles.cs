@@ -50,6 +50,14 @@ namespace Blueink.Client.Net.v2.RequestModel
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public virtual IList<string> VAttachmentTypes { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("v_regex",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual string VRegex { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("v_regex_msg",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual string VRegexMsg { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("format",
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -140,6 +148,14 @@ namespace Blueink.Client.Net.v2.RequestModel
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public virtual IList<string> VAttachmentTypes { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("v_regex",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual string VRegex { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("v_regex_msg",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual string VRegexMsg { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("format",
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
@@ -394,6 +410,10 @@ namespace Blueink.Client.Net.v2.RequestModel
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public virtual string FileBinary64 { get; set; }
+        [Newtonsoft.Json.JsonProperty("file_html",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual string FileHtml { get; set; }
         [Newtonsoft.Json.JsonProperty("filename")]
         public virtual string Filename { get; set; }
         [Newtonsoft.Json.JsonProperty("file_index",
@@ -411,6 +431,10 @@ namespace Blueink.Client.Net.v2.RequestModel
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public virtual string ConvertedAdobeFieldsTo { get; set; }
+        [Newtonsoft.Json.JsonProperty("html_fields_mode",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual string HtmlFieldsMode { get; set; }
         [Newtonsoft.Json.JsonProperty("parse_tags",
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
