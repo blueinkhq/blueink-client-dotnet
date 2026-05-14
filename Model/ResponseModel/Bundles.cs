@@ -66,7 +66,11 @@ namespace Blueink.Client.Net.v2.ResponseModel
         [Newtonsoft.Json.JsonPropertyAttribute("completed_at")]
         public virtual DateTime? CompletedAt { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("last_accessed_at")]
-        public virtual DateTime? LastAccessedAt { get; set; }     
+        public virtual DateTime? LastAccessedAt { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("requires_witness")]
+        public virtual bool? RequiresWitness { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("witness_nominated_by")]
+        public virtual string WitnessNominatedBy { get; set; }
     }
     public class BundlePayment
     {
