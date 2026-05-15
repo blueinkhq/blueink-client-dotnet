@@ -104,6 +104,10 @@ namespace Blueink.Client.Net.v2.Serializer
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
+            if (reader.TokenType == JsonToken.Null)
+            {
+                return null;
+            }
             if (reader.TokenType == JsonToken.String)
             {
                 return reader.Value.ToString();
