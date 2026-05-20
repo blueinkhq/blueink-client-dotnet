@@ -937,9 +937,10 @@ namespace Blueink.Client.Net.v2.Resource
                 {
                     if (doc is RequestModel.DocumentRef docRef)
                     {
-                        // Check if there any fields set if not then throw 
-                        if (docRef.Fields == null)
-                            throw new ArgumentNullException("document fields cannot be null");
+                        // Document must have at least one field or auto-placement
+                        if ((docRef.Fields == null || docRef.Fields.Count == 0)
+                            && (docRef.AutoPlacements == null || docRef.AutoPlacements.Count == 0))
+                            throw new ArgumentNullException("document must have at least one field or auto-placement");
                     }
                     else if (doc is RequestModel.TemplateRef temRef)
                     { 
