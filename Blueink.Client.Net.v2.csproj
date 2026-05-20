@@ -12,7 +12,7 @@
 
     <!-- NuGet Package Metadata -->
     <PackageId>Blueink.Client.Net</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>Blueink</Authors>
     <Company>Blueink</Company>
     <Description>Official .NET client library for the Blueink eSignature API. Provides a simple, strongly-typed interface for creating signature requests, managing documents, templates, and webhooks.</Description>
