@@ -793,8 +793,24 @@ namespace Blueink.Client.Net.v2.Resource
                 else if (document is RequestModel.DocumentRef documentRef)
                 {
                     string docKey = String.Empty;
+                    bool hasFileB64 = !String.IsNullOrWhiteSpace(documentRef.FileBinary64);
+                    bool hasFileHtml = !String.IsNullOrWhiteSpace(documentRef.FileHtml);
+
+                    if (hasFileB64 && hasFileHtml)
+                        throw new BlueinkApiException(service.Name, "Provide only one of file_b64 or file_html")
+                        {
+                            Error = new Error()
+                            {
+                                Code = ErrorCode.Invalid,
+                                Message = "Provide only one of file_b64 or file_html",
+                                Errors = null
+                            }
+                        };
+
                     if (!String.IsNullOrWhiteSpace(documentRef.FileUrl))
                         docKey = bundleHelper.AddDocumentByUrl(documentRef.Key, documentRef.FileUrl);
+                    else if (hasFileHtml)
+                        docKey = bundleHelper.AddDocumentByHtml(documentRef.Key, documentRef.Filename, documentRef.FileHtml);
                     else
                         docKey = bundleHelper.AddDocumentByB64(documentRef.Key, documentRef.Filename, documentRef.FileBinary64);
 
@@ -1179,6 +1195,66 @@ namespace Blueink.Client.Net.v2.Resource
             public override string RestPath
             {
                 get { return "bundles/"; }
+            }
+
+            public override string HttpMethod
+            {
+                get { return "post"; }
+            }
+        }
+
+        /// <summary>
+        /// Creates an embedded document preparation session for a bundle.
+        /// </summary>
+        /// <param name="request">The preparation session request parameters.</param>
+        /// <returns>A request object that can be executed to create the preparation session.</returns>
+        public virtual CreateBundlePreparationSessionRequest CreateBundlePreparationSession(RequestModel.PreparationSessionRequest request)
+        {
+            if (request == null)
+                throw new ArgumentNullException("request cannot be null");
+
+            return new CreateBundlePreparationSessionRequest(service, request);
+        }
+
+        public class CreateBundlePreparationSessionRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.EmbededSigning>
+        {
+            public CreateBundlePreparationSessionRequest(IClientService service,
+                RequestModel.PreparationSessionRequest request)
+                : base(service)
+            {
+                Request = request;
+            }
+
+            public virtual RequestModel.PreparationSessionRequest Request { get; set; }
+
+            public override string BuildJsonRequestBody()
+            {
+                return Service.SerializeObject(Request);
+            }
+
+            public override IEnumerable<KeyValuePair<string, string>> BuildRequestBody()
+            {
+                return base.BuildRequestBody();
+            }
+
+            public override string BuildUriRequest()
+            {
+                return RestPath;
+            }
+
+            public override string PayloadContentType
+            {
+                get { return "json"; }
+            }
+
+            public override string MethodName
+            {
+                get { return "create"; }
+            }
+
+            public override string RestPath
+            {
+                get { return "bundles/create_preparation_session/"; }
             }
 
             public override string HttpMethod

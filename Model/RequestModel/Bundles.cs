@@ -580,6 +580,11 @@ namespace Blueink.Client.Net.v2.RequestModel
             }
         }
 
+        [Newtonsoft.Json.JsonPropertyAttribute("expires",
+        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+        DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual DateTime? Expires { get; set; }
+
         [Newtonsoft.Json.JsonPropertyAttribute("payment",
         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
@@ -633,5 +638,38 @@ namespace Blueink.Client.Net.v2.RequestModel
                 this.CCEmails = new List<string>();
             this.CCEmails.Add(email);
         }
+    }
+
+    /// <summary>
+    /// Request model for creating an embedded document preparation session.
+    /// At least one document source must be provided: upload_pdf=true, template_ids, or folder_ids.
+    /// </summary>
+    public class PreparationSessionRequest
+    {
+        [Newtonsoft.Json.JsonPropertyAttribute("draft_bundle",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string DraftBundle { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("folder_ids",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual IList<string> FolderIds { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("redirect_url",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string RedirectUrl { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("template_ids",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual IList<string> TemplateIds { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("upload_pdf")]
+        public virtual bool UploadPdf { get; set; } = true;
+
+        [Newtonsoft.Json.JsonPropertyAttribute("allow_search_signers")]
+        public virtual bool AllowSearchSigners { get; set; } = false;
     }
 }
