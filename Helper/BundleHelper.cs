@@ -22,6 +22,7 @@ namespace Blueink.Client.Net.v2.Helper
         public string Team { get; set; }
         public string SigningBrand { get; set; }
         public BundleStatus? Status { get; set; }
+        public DateTime? Expires { get; set; }
         public bool IsTest { get; set; }
         public bool InOrder { get; set; }
         public EnvelopeTemplate EnvelopeTemplate { get; set; }
@@ -91,7 +92,17 @@ namespace Blueink.Client.Net.v2.Helper
             else
                 document.FileIndex = null;
 
-            Console.WriteLine("doc -- {document.Key}");
+            this.Documents[document.Key] = document;
+            return document.Key;
+        }
+
+        public string AddDocumentByHtml(string key, string filename, string html)
+        {
+            var document = DocumentRef.Create(key);
+            document.Filename = filename;
+            document.FileHtml = html;
+            document.FileIndex = null;
+
             this.Documents[document.Key] = document;
             return document.Key;
         }
@@ -297,6 +308,7 @@ namespace Blueink.Client.Net.v2.Helper
             bundle_out.Team = this.Team;
             bundle_out.SigningBrand = this.SigningBrand;
             bundle_out.Status = this.Status;
+            bundle_out.Expires = this.Expires;
 
             return bundle_out;
         }
@@ -330,6 +342,7 @@ namespace Blueink.Client.Net.v2.Helper
             bundle_out.Team = this.Team;
             bundle_out.SigningBrand = this.SigningBrand;
             bundle_out.Status = this.Status;
+            bundle_out.Expires = this.Expires;
 
             bundle_out.EnvelopeTemplate = new EnvelopeTemplate
             {
