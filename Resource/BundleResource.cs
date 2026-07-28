@@ -543,6 +543,138 @@ namespace Blueink.Client.Net.v2.Resource
 
         }
 
+        /// <summary>
+        /// Validates whether a draft/pending bundle can be sent.
+        /// </summary>
+        public virtual ValidateBundleRequest ValidateBundle(string bundleSlug)
+        {
+            return new ValidateBundleRequest(service, bundleSlug);
+        }
+
+        public class ValidateBundleRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.BundleValidateResult>
+        {
+            public ValidateBundleRequest(IClientService service, string bundleSlug)
+                : base(service)
+            {
+                BundleSlug = bundleSlug;
+            }
+
+            public virtual string BundleSlug { get; private set; }
+
+            public override string BuildUriRequest()
+            {
+                return RestPath;
+            }
+
+            public override string MethodName
+            {
+                get { return "put"; }
+            }
+
+            public override string RestPath
+            {
+                get { return String.Format("bundles/{0}/validate/", BundleSlug); }
+            }
+
+            public override string HttpMethod
+            {
+                get { return "put"; }
+            }
+        }
+
+        /// <summary>
+        /// Sends a draft/pending bundle.
+        /// </summary>
+        public virtual SendBundleRequest SendBundle(string bundleSlug)
+        {
+            return new SendBundleRequest(service, bundleSlug);
+        }
+
+        public class SendBundleRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.Bundle>
+        {
+            public SendBundleRequest(IClientService service, string bundleSlug)
+                : base(service)
+            {
+                BundleSlug = bundleSlug;
+            }
+
+            public virtual string BundleSlug { get; private set; }
+
+            public override string BuildUriRequest()
+            {
+                return RestPath;
+            }
+
+            public override string MethodName
+            {
+                get { return "post"; }
+            }
+
+            public override string RestPath
+            {
+                get { return String.Format("bundles/{0}/send/", BundleSlug); }
+            }
+
+            public override string HttpMethod
+            {
+                get { return "post"; }
+            }
+        }
+
+        /// <summary>
+        /// Partially updates a draft/pending bundle via PATCH (e.g. signing_brand, expires).
+        /// </summary>
+        public virtual UpdateBundleRequest UpdateBundle(string bundleSlug, RequestModel.BundleUpdate update)
+        {
+            if (update == null)
+                throw new ArgumentNullException("update");
+
+            return new UpdateBundleRequest(service, bundleSlug, update);
+        }
+
+        public class UpdateBundleRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.Bundle>
+        {
+            public UpdateBundleRequest(IClientService service, string bundleSlug, RequestModel.BundleUpdate update)
+                : base(service)
+            {
+                BundleSlug = bundleSlug;
+                Request = update;
+            }
+
+            public virtual string BundleSlug { get; private set; }
+            public virtual RequestModel.BundleUpdate Request { get; set; }
+
+            public override string BuildJsonRequestBody()
+            {
+                return Service.SerializeObject(Request);
+            }
+
+            public override string BuildUriRequest()
+            {
+                return RestPath;
+            }
+
+            public override string PayloadContentType
+            {
+                get { return "json"; }
+            }
+
+            public override string MethodName
+            {
+                get { return "update"; }
+            }
+
+            public override string RestPath
+            {
+                get { return String.Format("bundles/{0}/", BundleSlug); }
+            }
+
+            public override string HttpMethod
+            {
+                get { return "patch"; }
+            }
+        }
+
         public virtual GenerateInterimBundleFilesRequest GenerateInterimBundleFiles(string bundleSlug)
         {
             return new GenerateInterimBundleFilesRequest(service, bundleSlug);
@@ -1254,7 +1386,7 @@ namespace Blueink.Client.Net.v2.Resource
 
             public override string RestPath
             {
-                get { return "bundles/create_preparation_session/"; }
+                get { return "bundles/preparation_session/"; }
             }
 
             public override string HttpMethod

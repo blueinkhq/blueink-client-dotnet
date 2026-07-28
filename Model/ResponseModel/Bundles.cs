@@ -15,6 +15,44 @@ namespace Blueink.Client.Net.v2.ResponseModel
         public virtual DateTime Expires { get; set; }
     }
 
+    public class VerifyEnvelope
+    {
+        [Newtonsoft.Json.JsonPropertyAttribute("bundle_slug")]
+        public virtual string BundleSlug { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("status")]
+        public virtual string Status { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("sent")]
+        public virtual DateTime? Sent { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("completed_at")]
+        public virtual DateTime? CompletedAt { get; set; }
+    }
+
+    public class BundleValidateResult
+    {
+        [Newtonsoft.Json.JsonPropertyAttribute("can_send")]
+        public virtual bool CanSend { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("msg")]
+        public virtual string Msg { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("n_docs")]
+        public virtual int NDocs { get; set; }
+    }
+
+    public class VerifyResult
+    {
+        [Newtonsoft.Json.JsonPropertyAttribute("status")]
+        public virtual string Status { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("message")]
+        public virtual string Message { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("sha256")]
+        public virtual string SHA256 { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("document_type")]
+        public virtual string DocumentType { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("signed_at")]
+        public virtual DateTime? SignedAt { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("envelope")]
+        public virtual VerifyEnvelope Envelope { get; set; }
+    }
+
     public class PacketCertificateOfEvidence
     {
         [Newtonsoft.Json.JsonPropertyAttribute("file_url")]

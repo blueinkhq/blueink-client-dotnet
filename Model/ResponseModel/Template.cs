@@ -50,10 +50,16 @@ namespace Blueink.Client.Net.v2.ResponseModel
         public virtual object DefaultValue { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("editor_roles")]
         public virtual IList<string> EditorRoles { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("data_flow_tag")]
+        public virtual string DataFlowTag { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("shrink_to_fit")]
+        public virtual bool ShrinkToFit { get; set; }
     }
 
     public class DocumentTemplate
     {
+        [Newtonsoft.Json.JsonPropertyAttribute("id")]
+        public virtual string Id { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("is_shared")]
         public virtual bool IsShared { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("name")]
@@ -64,6 +70,10 @@ namespace Blueink.Client.Net.v2.ResponseModel
         public virtual IList<DocumentTemplateRole> Roles { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("fields")]
         public virtual IList<DocumentTemplateField> Fields { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("teams")]
+        public virtual IList<string> Teams { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("metadata")]
+        public virtual IDictionary<string, object> Metadata { get; set; }
     }
 
     public class EnvelopeDocumentTemplate

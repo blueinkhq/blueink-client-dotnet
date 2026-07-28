@@ -76,8 +76,10 @@ namespace Blueink.Client.Net.v2.Helper
                 case EventType.BundleDocsReady: result = "bundle_docs_ready"; break;
                 case EventType.BundleError: result = "bundle_error"; break;
                 case EventType.BundleCancelled: result = "bundle_cancelled"; break;
+                case EventType.BundleSignerReassigned: result = "bundle_signer_reassigned"; break;
                 case EventType.PacketViewed: result = "packet_viewed"; break;
                 case EventType.PacketComplete: result = "packet_complete"; break;
+                case EventType.PacketDeclined: result = "packet_declined"; break;
             }
             return result;
         }
@@ -98,10 +100,14 @@ namespace Blueink.Client.Net.v2.Helper
                 type = EventType.BundleError;
             else if (value.Equals("bundle_cancelled", StringComparison.CurrentCultureIgnoreCase))
                 type = EventType.BundleCancelled;
+            else if (value.Equals("bundle_signer_reassigned", StringComparison.CurrentCultureIgnoreCase))
+                type = EventType.BundleSignerReassigned;
             else if (value.Equals("packet_viewed", StringComparison.CurrentCultureIgnoreCase))
                 type = EventType.PacketViewed;
             else if (value.Equals("packet_complete", StringComparison.CurrentCultureIgnoreCase))
                 type = EventType.PacketComplete;
+            else if (value.Equals("packet_declined", StringComparison.CurrentCultureIgnoreCase))
+                type = EventType.PacketDeclined;
 
             return type;
         }
