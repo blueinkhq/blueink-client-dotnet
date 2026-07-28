@@ -62,6 +62,8 @@ namespace Blueink.Client.Net.v2.ResponseModel
     {
         [Newtonsoft.Json.JsonPropertyAttribute("id")]
         public virtual string Id { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("name")]
+        public virtual string Name { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("url")]
         public virtual string Url { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("enable")]

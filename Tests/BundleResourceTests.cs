@@ -82,7 +82,7 @@ namespace Blueink.Client.Net.v2.Tests
                 var request = service.BundleResource.CreateBundlePreparationSession(prep);
 
                 Assert.AreSame(prep, request.Request);
-                Assert.AreEqual("bundles/create_preparation_session/", request.RestPath);
+                Assert.AreEqual("bundles/preparation_session/", request.RestPath);
                 Assert.AreEqual("post", request.HttpMethod);
             }
         }
@@ -138,6 +138,123 @@ namespace Blueink.Client.Net.v2.Tests
             // Assert
             Assert.That(json, Does.Contain("\"template_ids\":[\"tmpl-1\"]"));
             Assert.That(json, Does.Contain("\"redirect_url\":\"https://example.com/callback\""));
+        }
+
+        #endregion
+
+        #region Draft send / validate / update
+
+        [Test]
+        public void ValidateBundle_ReturnsRequest_WithCorrectRestPathAndMethod()
+        {
+            using (var service = new BlueinkService(ValidApiKey))
+            {
+                var request = service.BundleResource.ValidateBundle("slug-1");
+
+                Assert.AreEqual("bundles/slug-1/validate/", request.RestPath);
+                Assert.AreEqual("put", request.HttpMethod);
+            }
+        }
+
+        [Test]
+        public void SendBundle_ReturnsRequest_WithCorrectRestPathAndMethod()
+        {
+            using (var service = new BlueinkService(ValidApiKey))
+            {
+                var request = service.BundleResource.SendBundle("slug-1");
+
+                Assert.AreEqual("bundles/slug-1/send/", request.RestPath);
+                Assert.AreEqual("post", request.HttpMethod);
+            }
+        }
+
+        [Test]
+        public void UpdateBundle_WithNullUpdate_ThrowsArgumentNullException()
+        {
+            using (var service = new BlueinkService(ValidApiKey))
+            {
+                Assert.Throws<ArgumentNullException>(() =>
+                    service.BundleResource.UpdateBundle("slug-1", null));
+            }
+        }
+
+        [Test]
+        public void UpdateBundle_SerializesSigningBrand_AndUsesPatch()
+        {
+            using (var service = new BlueinkService(ValidApiKey))
+            {
+                var update = new BundleUpdate { SigningBrand = "brand-uuid" };
+                var request = service.BundleResource.UpdateBundle("slug-1", update);
+
+                Assert.AreEqual("bundles/slug-1/", request.RestPath);
+                Assert.AreEqual("patch", request.HttpMethod);
+                Assert.That(request.BuildJsonRequestBody(), Does.Contain("\"signing_brand\":\"brand-uuid\""));
+            }
+        }
+
+        #endregion
+
+        #region tag_values / auth_secrets
+
+        [Test]
+        public void Bundle_SerializesTagValues()
+        {
+            var bundle = new Bundle
+            {
+                TagValues = new Dictionary<string, object> { { "amount", "100.00" } }
+            };
+
+            var json = NewtonsoftJsonSerializer.Instance.Serialize(bundle);
+
+            Assert.That(json, Does.Contain("\"tag_values\":{\"amount\":\"100.00\"}"));
+        }
+
+        [Test]
+        public void Bundle_OmitsTagValuesWhenNull()
+        {
+            var bundle = new Bundle();
+
+            var json = NewtonsoftJsonSerializer.Instance.Serialize(bundle);
+
+            Assert.That(json, Does.Not.Contain("tag_values"));
+        }
+
+        [Test]
+        public void Packet_SerializesAuthSecretsWhenSet()
+        {
+            var packet = Packet.Create("signer1", "Test Signer");
+            packet.AuthSecrets = new Dictionary<string, object> { { "dob", "1990-01-01" } };
+
+            var json = NewtonsoftJsonSerializer.Instance.Serialize(packet);
+
+            Assert.That(json, Does.Contain("auth_secrets"));
+        }
+
+        #endregion
+
+        #region Verify
+
+        [Test]
+        public void Verify_WithNullHash_ThrowsArgumentNullException()
+        {
+            using (var service = new BlueinkService(ValidApiKey))
+            {
+                Assert.Throws<ArgumentNullException>(() =>
+                    service.VerifyResource.Verify(null));
+            }
+        }
+
+        [Test]
+        public void Verify_ReturnsRequest_WithCorrectRestPathMethodAndBody()
+        {
+            using (var service = new BlueinkService(ValidApiKey))
+            {
+                var request = service.VerifyResource.Verify("abc123");
+
+                Assert.AreEqual("verify/", request.RestPath);
+                Assert.AreEqual("post", request.HttpMethod);
+                Assert.That(request.BuildJsonRequestBody(), Does.Contain("\"hash\":\"abc123\""));
+            }
         }
 
         #endregion

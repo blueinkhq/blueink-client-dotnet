@@ -172,15 +172,18 @@ namespace Blueink.Client.Net.v2.Resource
             return new CreateRequest(service);
         }
 
+        /// <summary>
+        /// Creates a webhook. <c>name</c> is required by the API.
+        /// </summary>
         public virtual CreateRequest Create(
-            string id,
+            string name,
             string url,
             bool? enabled,
             bool? json,
             IList<EventType> eventTypes,
             IList<WebhookExtraHeader> extraheaders)
         {
-            return new CreateRequest(service, id, url,enabled,json,eventTypes,extraheaders);
+            return new CreateRequest(service, name, url, enabled, json, eventTypes, extraheaders);
         }
 
         public class CreateRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.Webhook>
@@ -192,7 +195,7 @@ namespace Blueink.Client.Net.v2.Resource
             }
 
             public CreateRequest(IClientService service,
-                string id, 
+                string name,
                 string url,
                 bool? enabled,
                 bool? json,
@@ -200,7 +203,7 @@ namespace Blueink.Client.Net.v2.Resource
                 IList<WebhookExtraHeader> extraHeaders)
                 : base(service)
             {
-                Id = id;
+                Name = name;
                 Url = url;
                 Enabled = enabled;
                 Json = json;
@@ -208,7 +211,7 @@ namespace Blueink.Client.Net.v2.Resource
                 ExtraHeaders = extraHeaders;
             }
 
-            public virtual string Id
+            public virtual string Name
             {
                 get;
                 set;
@@ -220,8 +223,8 @@ namespace Blueink.Client.Net.v2.Resource
                 set;
             }
             public virtual bool? Enabled
-            { 
-                get; 
+            {
+                get;
                 set;
             }
             public virtual bool? Json
@@ -241,29 +244,38 @@ namespace Blueink.Client.Net.v2.Resource
             }
             public override IEnumerable<KeyValuePair<string, string>> BuildRequestBody()
             {
+                if (String.IsNullOrEmpty(this.Name))
+                    throw new BlueinkValidationException(Service.Name, "name", "name is required to create a webhook.");
+
                 var list = new List<KeyValuePair<string, string>>();
-                list.Add(new KeyValuePair<string, string>("id", this.Id));
+                list.Add(new KeyValuePair<string, string>("name", this.Name.TruncateString(80)));
                 list.Add(new KeyValuePair<string, string>("url", this.Url));
                 list.Add(new KeyValuePair<string, string>("enabled", this.Enabled.HasValue ? this.Enabled.Value.ToString() : "true"));
                 list.Add(new KeyValuePair<string, string>("json", this.Json.HasValue ? this.Json.Value.ToString() : "true"));
 
                 StringBuilder builder = new StringBuilder("[");
-                foreach (var type in EventTypes)
+                if (EventTypes != null)
                 {
-                    if (EventTypes.IndexOf(type) != 0)
-                        builder.Append(",");
-                    builder.Append(Service.SerializeObject(type));
+                    foreach (var type in EventTypes)
+                    {
+                        if (EventTypes.IndexOf(type) != 0)
+                            builder.Append(",");
+                        builder.Append(Service.SerializeObject(type));
+                    }
                 }
                 builder.Append("]");
                 list.Add(new KeyValuePair<string, string>("event_types", builder.ToString()));
 
                 builder.Clear();
                 builder.Append("[");
-                foreach (var header in ExtraHeaders)
+                if (ExtraHeaders != null)
                 {
-                    if (ExtraHeaders.IndexOf(header) != 0)
-                        builder.Append(",");
-                    builder.Append(Service.SerializeObject(header));
+                    foreach (var header in ExtraHeaders)
+                    {
+                        if (ExtraHeaders.IndexOf(header) != 0)
+                            builder.Append(",");
+                        builder.Append(Service.SerializeObject(header));
+                    }
                 }
                 builder.Append("]");
                 list.Add(new KeyValuePair<string, string>("extra_headers", builder.ToString()));
@@ -274,6 +286,11 @@ namespace Blueink.Client.Net.v2.Resource
             public override string BuildUriRequest()
             {
                 return RestPath;
+            }
+
+            public override string PayloadContentType
+            {
+                get { return "urlencodedformdata"; }
             }
 
             public override string MethodName
@@ -298,16 +315,19 @@ namespace Blueink.Client.Net.v2.Resource
             return new UpdateRequest(service, webhookId);
         }
 
+        /// <summary>
+        /// Updates a webhook (PUT).
+        /// </summary>
         public virtual UpdateRequest Update(
             string webhookId,
-            string id,
+            string name,
             string url,
             bool? enabled,
             bool? json,
             IList<EventType> eventTypes,
             IList<WebhookExtraHeader> extraheaders)
         {
-            return new UpdateRequest(service, webhookId, id, url,enabled,json,eventTypes,extraheaders);
+            return new UpdateRequest(service, webhookId, name, url, enabled, json, eventTypes, extraheaders);
         }
 
         public class UpdateRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.Webhook>
@@ -319,9 +339,9 @@ namespace Blueink.Client.Net.v2.Resource
                 WebhookId = webhookId;
             }
 
-            public UpdateRequest(IClientService service, 
-                string webhookId, 
-                string id,
+            public UpdateRequest(IClientService service,
+                string webhookId,
+                string name,
                 string url,
                 bool? enabled,
                 bool? json,
@@ -331,7 +351,7 @@ namespace Blueink.Client.Net.v2.Resource
                 : base(service)
             {
                 WebhookId = webhookId;
-                Id = id;
+                Name = name;
                 Url = url;
                 Enabled = enabled;
                 Json = json;
@@ -340,7 +360,8 @@ namespace Blueink.Client.Net.v2.Resource
             }
 
             public virtual string WebhookId { get; private set; }
-            public virtual string Id
+
+            public virtual string Name
             {
                 get;
                 set;
@@ -375,28 +396,35 @@ namespace Blueink.Client.Net.v2.Resource
             public override IEnumerable<KeyValuePair<string, string>> BuildRequestBody()
             {
                 var list = new List<KeyValuePair<string, string>>();
-                list.Add(new KeyValuePair<string, string>("id", this.Id));
+                if (!String.IsNullOrEmpty(this.Name))
+                    list.Add(new KeyValuePair<string, string>("name", this.Name.TruncateString(80)));
                 list.Add(new KeyValuePair<string, string>("url", this.Url));
                 list.Add(new KeyValuePair<string, string>("enabled", this.Enabled.HasValue ? this.Enabled.Value.ToString() : "true"));
                 list.Add(new KeyValuePair<string, string>("json", this.Json.HasValue ? this.Json.Value.ToString() : "true"));
 
                 StringBuilder builder = new StringBuilder("[");
-                foreach (var type in EventTypes)
+                if (EventTypes != null)
                 {
-                    if (EventTypes.IndexOf(type) != 0)
-                        builder.Append(",");
-                    builder.Append(Service.SerializeObject(type));
+                    foreach (var type in EventTypes)
+                    {
+                        if (EventTypes.IndexOf(type) != 0)
+                            builder.Append(",");
+                        builder.Append(Service.SerializeObject(type));
+                    }
                 }
                 builder.Append("]");
                 list.Add(new KeyValuePair<string, string>("event_types", builder.ToString()));
 
                 builder.Clear();
                 builder.Append("[");
-                foreach (var header in ExtraHeaders)
+                if (ExtraHeaders != null)
                 {
-                    if (ExtraHeaders.IndexOf(header) != 0)
-                        builder.Append(",");
-                    builder.Append(Service.SerializeObject(header));
+                    foreach (var header in ExtraHeaders)
+                    {
+                        if (ExtraHeaders.IndexOf(header) != 0)
+                            builder.Append(",");
+                        builder.Append(Service.SerializeObject(header));
+                    }
                 }
                 builder.Append("]");
                 list.Add(new KeyValuePair<string, string>("extra_headers", builder.ToString()));
@@ -407,6 +435,11 @@ namespace Blueink.Client.Net.v2.Resource
             public override string BuildUriRequest()
             {
                 return RestPath;
+            }
+
+            public override string PayloadContentType
+            {
+                get { return "urlencodedformdata"; }
             }
 
             public override string MethodName
@@ -431,16 +464,19 @@ namespace Blueink.Client.Net.v2.Resource
             return new PartialUpdateRequest(service, webhookId);
         }
 
+        /// <summary>
+        /// Partially updates a webhook (PATCH).
+        /// </summary>
         public virtual PartialUpdateRequest PartialUpdate(
             string webhookId,
-            string id,
+            string name,
             string url,
             bool? enabled,
             bool? json,
             IList<EventType> eventTypes,
             IList<WebhookExtraHeader> extraHeaders)
         {
-            return new PartialUpdateRequest(service, webhookId, id, url, enabled, json, eventTypes, extraHeaders);
+            return new PartialUpdateRequest(service, webhookId, name, url, enabled, json, eventTypes, extraHeaders);
         }
 
         public class PartialUpdateRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.Webhook>
@@ -453,7 +489,7 @@ namespace Blueink.Client.Net.v2.Resource
 
             public PartialUpdateRequest(IClientService service,
                 string webhookId,
-                string id,
+                string name,
                 string url,
                 bool? enabled,
                 bool? json,
@@ -462,7 +498,7 @@ namespace Blueink.Client.Net.v2.Resource
                 : base(service)
             {
                 WebhookId = webhookId;
-                Id = id;
+                Name = name;
                 Url = url;
                 Enabled = enabled;
                 Json = json;
@@ -471,7 +507,8 @@ namespace Blueink.Client.Net.v2.Resource
             }
 
             public virtual string WebhookId { get; private set; }
-            public virtual string Id
+
+            public virtual string Name
             {
                 get;
                 set;
@@ -507,31 +544,40 @@ namespace Blueink.Client.Net.v2.Resource
             {
                 var list = new List<KeyValuePair<string, string>>();
 
-                list.Add(new KeyValuePair<string, string>("id", this.Id));
-                list.Add(new KeyValuePair<string, string>("url", this.Url));
-                list.Add(new KeyValuePair<string, string>("enabled", this.Enabled.HasValue ? this.Enabled.Value.ToString() : "true"));
-                list.Add(new KeyValuePair<string, string>("json", this.Json.HasValue ? this.Json.Value.ToString() : "true"));
+                if (!String.IsNullOrEmpty(this.Name))
+                    list.Add(new KeyValuePair<string, string>("name", this.Name.TruncateString(80)));
+                if (!String.IsNullOrEmpty(this.Url))
+                    list.Add(new KeyValuePair<string, string>("url", this.Url));
+                if (this.Enabled.HasValue)
+                    list.Add(new KeyValuePair<string, string>("enabled", this.Enabled.Value.ToString()));
+                if (this.Json.HasValue)
+                    list.Add(new KeyValuePair<string, string>("json", this.Json.Value.ToString()));
 
-                StringBuilder builder = new StringBuilder("[");
-                foreach (var type in EventTypes)
+                if (this.EventTypes != null)
                 {
-                    if (EventTypes.IndexOf(type) != 0)
-                        builder.Append(",");
-                    builder.Append(Service.SerializeObject(type));
+                    StringBuilder builder = new StringBuilder("[");
+                    foreach (var type in EventTypes)
+                    {
+                        if (EventTypes.IndexOf(type) != 0)
+                            builder.Append(",");
+                        builder.Append(Service.SerializeObject(type));
+                    }
+                    builder.Append("]");
+                    list.Add(new KeyValuePair<string, string>("event_types", builder.ToString()));
                 }
-                builder.Append("]");
-                list.Add(new KeyValuePair<string, string>("event_types", builder.ToString()));
 
-                builder.Clear();
-                builder.Append("[");
-                foreach (var header in ExtraHeaders)
+                if (this.ExtraHeaders != null)
                 {
-                    if (ExtraHeaders.IndexOf(header) != 0)
-                        builder.Append(",");
-                    builder.Append(Service.SerializeObject(header));
+                    StringBuilder builder = new StringBuilder("[");
+                    foreach (var header in ExtraHeaders)
+                    {
+                        if (ExtraHeaders.IndexOf(header) != 0)
+                            builder.Append(",");
+                        builder.Append(Service.SerializeObject(header));
+                    }
+                    builder.Append("]");
+                    list.Add(new KeyValuePair<string, string>("extra_headers", builder.ToString()));
                 }
-                builder.Append("]");
-                list.Add(new KeyValuePair<string, string>("extra_headers", builder.ToString()));
 
                 return list;
             }
@@ -539,6 +585,11 @@ namespace Blueink.Client.Net.v2.Resource
             public override string BuildUriRequest()
             {
                 return RestPath;
+            }
+
+            public override string PayloadContentType
+            {
+                get { return "urlencodedformdata"; }
             }
 
             public override string MethodName
@@ -1035,14 +1086,16 @@ namespace Blueink.Client.Net.v2.Resource
             return new CreateHeaderRequest(service);
         }
 
+        /// <summary>
+        /// Creates a webhook extra header.
+        /// </summary>
         public virtual CreateHeaderRequest CreateHeader(
-            string id,
             string webhook,
             string name,
             string value,
             int? order)
         {
-            return new CreateHeaderRequest(service, id, webhook, name, value, order);
+            return new CreateHeaderRequest(service, webhook, name, value, order);
         }
 
         public class CreateHeaderRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.WebhookExtraHeader>
@@ -1054,25 +1107,18 @@ namespace Blueink.Client.Net.v2.Resource
             }
 
             public CreateHeaderRequest(IClientService service,
-                string id,
                 string webhook,
                 string name,
                 string value,
                 int? order)
                 : base(service)
             {
-                Id = id;
                 Webhook = webhook;
                 Name = name;
                 Value = value;
                 Order = order;
             }
 
-            public virtual string Id
-            {
-                get;
-                set;
-            }
             public virtual string Webhook
             {
                 get;
@@ -1097,7 +1143,6 @@ namespace Blueink.Client.Net.v2.Resource
             {
                 var list = new List<KeyValuePair<string, string>>();
 
-                list.Add(new KeyValuePair<string, string>("id", this.Id));
                 list.Add(new KeyValuePair<string, string>("webhook", this.Webhook));
                 list.Add(new KeyValuePair<string, string>("name", this.Name.TruncateString(80)));
                 list.Add(new KeyValuePair<string, string>("value", this.Value.TruncateString(240)));
@@ -1110,6 +1155,12 @@ namespace Blueink.Client.Net.v2.Resource
             {
                 return RestPath;
             }
+
+            public override string PayloadContentType
+            {
+                get { return "urlencodedformdata"; }
+            }
+
             public override string MethodName
             {
                 get { return "create"; }
@@ -1132,15 +1183,17 @@ namespace Blueink.Client.Net.v2.Resource
             return new UpdateHeaderRequest(service, webhookExtraHeaderId);
         }
 
-        public virtual UpdateHeaderRequest Update(
+        /// <summary>
+        /// Updates a webhook extra header (PUT).
+        /// </summary>
+        public virtual UpdateHeaderRequest UpdateHeader(
             string webhookExtraHeaderId,
-            string id,
             string webhook,
             string name,
             string value,
             int? order)
         {
-            return new UpdateHeaderRequest(service, webhookExtraHeaderId, id, webhook, name, value, order);
+            return new UpdateHeaderRequest(service, webhookExtraHeaderId, webhook, name, value, order);
         }
 
         public class UpdateHeaderRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.WebhookExtraHeader>
@@ -1153,7 +1206,6 @@ namespace Blueink.Client.Net.v2.Resource
 
             public UpdateHeaderRequest(IClientService service,
                 string webhookExtraHeaderId,
-                string id,
                 string webhook,
                 string name,
                 string value,
@@ -1161,7 +1213,6 @@ namespace Blueink.Client.Net.v2.Resource
                 : base(service)
             {
                 WebhookExtraHeaderId = webhookExtraHeaderId;
-                Id = id;
                 Webhook = webhook;
                 Name = name;
                 Value = value;
@@ -1173,11 +1224,7 @@ namespace Blueink.Client.Net.v2.Resource
                 get;
                 private set;
             }
-            public virtual string Id
-            {
-                get;
-                set;
-            }
+
             public virtual string Webhook
             {
                 get;
@@ -1203,7 +1250,6 @@ namespace Blueink.Client.Net.v2.Resource
             {
                 var list = new List<KeyValuePair<string, string>>();
 
-                list.Add(new KeyValuePair<string, string>("id", this.Id));
                 list.Add(new KeyValuePair<string, string>("webhook", this.Webhook));
                 list.Add(new KeyValuePair<string, string>("name", this.Name));
                 list.Add(new KeyValuePair<string, string>("value", this.Value));
@@ -1215,6 +1261,11 @@ namespace Blueink.Client.Net.v2.Resource
             public override string BuildUriRequest()
             {
                 return RestPath;
+            }
+
+            public override string PayloadContentType
+            {
+                get { return "urlencodedformdata"; }
             }
 
             public override string MethodName
@@ -1239,15 +1290,17 @@ namespace Blueink.Client.Net.v2.Resource
             return new PartialUpdateHeaderRequest(service, webhookExtraHeaderId);
         }
 
+        /// <summary>
+        /// Partially updates a webhook extra header (PATCH).
+        /// </summary>
         public virtual PartialUpdateHeaderRequest PartialUpdateHeader(
             string webhookExtraHeaderId,
-                string id,
                 string webhook,
                 string name,
                 string value,
                 int? order)
         {
-            return new PartialUpdateHeaderRequest(service, webhookExtraHeaderId, id, webhook, name, value, order);
+            return new PartialUpdateHeaderRequest(service, webhookExtraHeaderId, webhook, name, value, order);
         }
 
         public class PartialUpdateHeaderRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.WebhookExtraHeader>
@@ -1260,7 +1313,6 @@ namespace Blueink.Client.Net.v2.Resource
 
             public PartialUpdateHeaderRequest(IClientService service,
                 string webhookExtraHeaderId,
-                string id,
                 string webhook,
                 string name,
                 string value,
@@ -1268,7 +1320,6 @@ namespace Blueink.Client.Net.v2.Resource
                 : base(service)
             {
                 WebhookExtraHeaderId = webhookExtraHeaderId;
-                Id = id;
                 Webhook = webhook;
                 Name = name;
                 Value = value;
@@ -1280,11 +1331,7 @@ namespace Blueink.Client.Net.v2.Resource
                 get;
                 private set;
             }
-            public virtual string Id
-            {
-                get;
-                set;
-            }
+
             public virtual string Webhook
             {
                 get;
@@ -1310,11 +1357,14 @@ namespace Blueink.Client.Net.v2.Resource
             {
                 var list = new List<KeyValuePair<string, string>>();
 
-                list.Add(new KeyValuePair<string, string>("id", this.Id));
-                list.Add(new KeyValuePair<string, string>("webhook", this.Webhook));
-                list.Add(new KeyValuePair<string, string>("name", this.Name));
-                list.Add(new KeyValuePair<string, string>("value", this.Value));
-                list.Add(new KeyValuePair<string, string>("order", this.Order.HasValue ? this.Order.Value.ToString() : "1"));
+                if (!String.IsNullOrEmpty(this.Webhook))
+                    list.Add(new KeyValuePair<string, string>("webhook", this.Webhook));
+                if (!String.IsNullOrEmpty(this.Name))
+                    list.Add(new KeyValuePair<string, string>("name", this.Name));
+                if (!String.IsNullOrEmpty(this.Value))
+                    list.Add(new KeyValuePair<string, string>("value", this.Value));
+                if (this.Order.HasValue)
+                    list.Add(new KeyValuePair<string, string>("order", this.Order.Value.ToString()));
 
                 return list;
             }
@@ -1322,6 +1372,11 @@ namespace Blueink.Client.Net.v2.Resource
             public override string BuildUriRequest()
             {
                 return RestPath;
+            }
+
+            public override string PayloadContentType
+            {
+                get { return "urlencodedformdata"; }
             }
 
             public override string MethodName

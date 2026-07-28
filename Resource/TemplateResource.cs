@@ -262,5 +262,187 @@ namespace Blueink.Client.Net.v2.Resource
             }
 
         }
+
+        /// <summary>
+        /// Lists document templates filtered by developer-controlled metadata.
+        /// Each key/value pair is sent as ?metadata[key]=value.
+        /// </summary>
+        public virtual ListTemplateByMetadataRequest ListTemplateByMetadata(
+            IDictionary<string, string> metadata,
+            int? page = null,
+            int? per_page = null)
+        {
+            return new ListTemplateByMetadataRequest(service, metadata, page, per_page);
+        }
+
+        public class ListTemplateByMetadataRequest : BlueinkClientBaseService<IList<Blueink.Client.Net.v2.ResponseModel.DocumentTemplate>>
+        {
+            public ListTemplateByMetadataRequest(
+                IClientService service,
+                IDictionary<string, string> metadata,
+                int? page,
+                int? per_page)
+                : base(service)
+            {
+                this.Metadata = metadata;
+                this.Page = page;
+                this.PerPage = per_page;
+            }
+
+            public virtual IDictionary<string, string> Metadata { get; set; }
+            public virtual Nullable<int> Page { get; set; }
+            public virtual Nullable<int> PerPage { get; set; }
+
+            public override string BuildUriRequest()
+            {
+                List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
+                list.Add(new KeyValuePair<string, string>("page", this.Page.HasValue ? this.Page.Value.ToString() : "1"));
+                list.Add(new KeyValuePair<string, string>("per_page", this.PerPage.HasValue ? this.PerPage.Value.ToString() : "50"));
+                if (this.Metadata != null)
+                {
+                    foreach (var kvp in this.Metadata)
+                    {
+                        list.Add(new KeyValuePair<string, string>(String.Format("metadata[{0}]", kvp.Key), kvp.Value));
+                    }
+                }
+
+                StringBuilder builder = new StringBuilder(RestPath);
+                if (list.Count > 0)
+                {
+                    builder.Append(builder.ToString().Contains("?") ? "&" : "?");
+                    builder.Append(String.Join("&", list.Select(x => String.IsNullOrEmpty(x.Value) ? Uri.EscapeDataString(x.Key) : String.Format("{0}={1}", Uri.EscapeDataString(x.Key), Uri.EscapeDataString(x.Value))).ToArray()));
+                }
+
+                return builder.ToString();
+            }
+
+            public override string MethodName
+            {
+                get { return "list"; }
+            }
+            public override string RestPath
+            {
+                get { return "templates/"; }
+            }
+
+            public override string HttpMethod
+            {
+                get { return "get"; }
+            }
+        }
+
+        /// <summary>
+        /// Updates developer-controlled metadata on a document template via PATCH.
+        /// </summary>
+        public virtual UpdateTemplateMetadataRequest UpdateTemplateMetadata(
+            string templateId,
+            IDictionary<string, object> metadata)
+        {
+            return new UpdateTemplateMetadataRequest(service, templateId, metadata);
+        }
+
+        public class UpdateTemplateMetadataRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.DocumentTemplate>
+        {
+            public UpdateTemplateMetadataRequest(
+                IClientService service,
+                string templateId,
+                IDictionary<string, object> metadata)
+                : base(service)
+            {
+                if (metadata == null)
+                    throw new BlueinkValidationException(service.Name, "metadata", "metadata is required to update template metadata.");
+
+                TemplateId = templateId;
+                Request = new RequestModel.TemplateMetadataUpdateRequest { Metadata = metadata };
+            }
+
+            public virtual string TemplateId { get; private set; }
+            public virtual RequestModel.TemplateMetadataUpdateRequest Request { get; set; }
+
+            public override string BuildJsonRequestBody()
+            {
+                return Service.SerializeObject(Request);
+            }
+
+            public override string BuildUriRequest()
+            {
+                return RestPath;
+            }
+
+            public override string PayloadContentType
+            {
+                get { return "json"; }
+            }
+
+            public override string MethodName
+            {
+                get { return "update"; }
+            }
+
+            public override string RestPath
+            {
+                get { return String.Format("templates/{0}/", TemplateId); }
+            }
+
+            public override string HttpMethod
+            {
+                get { return "patch"; }
+            }
+        }
+
+        /// <summary>
+        /// Creates an embedded document template preparation session.
+        /// </summary>
+        public virtual CreateTemplatePreparationSessionRequest CreateTemplatePreparationSession(
+            RequestModel.TemplatePreparationSessionRequest request)
+        {
+            if (request == null)
+                throw new ArgumentNullException("request");
+
+            return new CreateTemplatePreparationSessionRequest(service, request);
+        }
+
+        public class CreateTemplatePreparationSessionRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.EmbededSigning>
+        {
+            public CreateTemplatePreparationSessionRequest(
+                IClientService service,
+                RequestModel.TemplatePreparationSessionRequest request)
+                : base(service)
+            {
+                Request = request;
+            }
+
+            public virtual RequestModel.TemplatePreparationSessionRequest Request { get; set; }
+
+            public override string BuildJsonRequestBody()
+            {
+                return Service.SerializeObject(Request);
+            }
+
+            public override string BuildUriRequest()
+            {
+                return RestPath;
+            }
+
+            public override string PayloadContentType
+            {
+                get { return "json"; }
+            }
+
+            public override string MethodName
+            {
+                get { return "create"; }
+            }
+
+            public override string RestPath
+            {
+                get { return "templates/preparation_session/"; }
+            }
+
+            public override string HttpMethod
+            {
+                get { return "post"; }
+            }
+        }
     }
 }

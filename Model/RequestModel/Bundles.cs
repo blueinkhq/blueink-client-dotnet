@@ -242,6 +242,10 @@ namespace Blueink.Client.Net.v2.RequestModel
         public virtual bool? AuthSelfie { get; set; }
         [Newtonsoft.Json.JsonProperty("auth_id")]
         public virtual bool? AuthId { get; set; }
+        [Newtonsoft.Json.JsonProperty("auth_secrets",
+        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+        DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual object AuthSecrets { get; set; }
         [Newtonsoft.Json.JsonProperty("signing_complete_redirect")]
         [MaxLength(400)]
         public virtual string SigningCompleteRedirect { get; set; }
@@ -589,6 +593,10 @@ namespace Blueink.Client.Net.v2.RequestModel
         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
         public virtual BundlePayment Payment { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("tag_values",
+        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+        DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual IDictionary<string, object> TagValues { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("packets")]
         public virtual IList<Packet> Packets { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("documents")]
@@ -671,5 +679,101 @@ namespace Blueink.Client.Net.v2.RequestModel
 
         [Newtonsoft.Json.JsonPropertyAttribute("allow_search_signers")]
         public virtual bool AllowSearchSigners { get; set; } = false;
+    }
+
+    /// <summary>
+    /// Request model for creating an embedded template preparation session.
+    /// Supply TemplateId to edit an existing template; omit it to start a
+    /// new-template authoring flow (Team, Library and Metadata apply only then).
+    /// </summary>
+    public class TemplatePreparationSessionRequest
+    {
+        [Newtonsoft.Json.JsonPropertyAttribute("template_id",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string TemplateId { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("redirect_url",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string RedirectUrl { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("team",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string Team { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("library",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string Library { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("metadata",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual IDictionary<string, object> Metadata { get; set; }
+    }
+
+    /// <summary>
+    /// Request model for PATCH /bundles/{slug}/ partial updates (draft/pending bundles).
+    /// Only non-null fields are serialized.
+    /// </summary>
+    public class BundleUpdate
+    {
+        [Newtonsoft.Json.JsonPropertyAttribute("team",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string Team { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("expires",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual DateTime? Expires { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("cc_sender",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual bool? CcSender { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("cc_emails",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual IList<string> CcEmails { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("send_reminders",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual bool? SendReminders { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("owner",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string Owner { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("signing_brand",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string SigningBrand { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("allow_signer_reassign",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual bool? AllowSignerReassign { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("allow_chained_signer_reassign",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual bool? AllowChainedSignerReassign { get; set; }
+    }
+
+    /// <summary>
+    /// Request model for PATCH /templates/{id}/ updating developer-controlled metadata.
+    /// </summary>
+    public class TemplateMetadataUpdateRequest
+    {
+        [Newtonsoft.Json.JsonPropertyAttribute("metadata")]
+        public virtual IDictionary<string, object> Metadata { get; set; }
+    }
+
+    /// <summary>
+    /// Request model for POST /verify/ PDF document verification.
+    /// </summary>
+    public class VerifyRequest
+    {
+        [Newtonsoft.Json.JsonPropertyAttribute("hash")]
+        [Newtonsoft.Json.JsonRequired]
+        public virtual string Hash { get; set; }
     }
 }

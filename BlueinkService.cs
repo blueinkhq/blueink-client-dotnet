@@ -75,6 +75,7 @@ namespace Blueink.Client.Net.v2
             personRes = new PersonResource(this);
             ratelimitRes = new RateLimitResource(this);
             webhookRes = new WebhookResource(this);
+            verifyRes = new VerifyResource(this);
         }
 
         /// <summary>
@@ -173,6 +174,15 @@ namespace Blueink.Client.Net.v2
         public virtual WebhookResource WebhookResource
         {
             get { return webhookRes; }
+        }
+
+        private readonly VerifyResource verifyRes;
+        /// <summary>
+        /// Gets the Verify resource for verifying signed documents by SHA256 hash.
+        /// </summary>
+        public virtual VerifyResource VerifyResource
+        {
+            get { return verifyRes; }
         }
     }
 

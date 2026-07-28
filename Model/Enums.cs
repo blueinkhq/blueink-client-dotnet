@@ -52,10 +52,14 @@ namespace Blueink.Client.Net.v2.Model
         BundleError,
         [EnumMember(Value = "bundle_cancelled")]
         BundleCancelled,
+        [EnumMember(Value = "bundle_signer_reassigned")]
+        BundleSignerReassigned,
         [EnumMember(Value = "packet_viewed")]
         PacketViewed,
         [EnumMember(Value = "packet_complete")]
-        PacketComplete
+        PacketComplete,
+        [EnumMember(Value = "packet_declined")]
+        PacketDeclined
     }
 
     [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
