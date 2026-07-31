@@ -42,7 +42,7 @@ Using `PackageReference`:
 
 ```xml
 <ItemGroup>
-  <PackageReference Include="Blueink.Client.Net" Version="1.0.3" />
+  <PackageReference Include="Blueink.Client.Net" Version="1.1.0" />
 </ItemGroup>
 ```
 
