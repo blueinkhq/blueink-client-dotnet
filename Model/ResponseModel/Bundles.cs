@@ -188,7 +188,11 @@ namespace Blueink.Client.Net.v2.ResponseModel
         [Newtonsoft.Json.JsonPropertyAttribute("reminder_expires")]
         public virtual int ReminderExpires { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("expires")]
-        public virtual DateTime? Expires { get; set; }  
+        public virtual DateTime? Expires { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("allow_signer_reassign")]
+        public virtual bool? AllowSignerReassign { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("allow_chained_signer_reassign")]
+        public virtual bool? AllowChainedSignerReassign { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("data")]
         public virtual IList<BundleData> Data { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("events")]

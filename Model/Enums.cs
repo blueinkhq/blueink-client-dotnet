@@ -144,7 +144,9 @@ namespace Blueink.Client.Net.v2.Model
         [EnumMember(Value = "sel")]
         Dropdown,
         [EnumMember(Value = "tms")]
-        SigningDate
+        SigningDate,
+        [EnumMember(Value = "stp")]
+        Stamp
     }
 
     [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))]
@@ -238,7 +240,9 @@ namespace Blueink.Client.Net.v2.Model
         [EnumMember(Value = "co")]
         Complete,
         [EnumMember(Value = "fa")]
-        Failed
+        Failed,
+        [EnumMember(Value = "ra")]
+        Reassigned
     }
 
     [Flags]
