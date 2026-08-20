@@ -242,6 +242,20 @@ namespace Blueink.Client.Net.v2.Tests
                 EnumTypeHelper.ConvertStringToEventType("packet_declined"));
         }
 
+        [Test]
+        public void EnumTypeHelper_ConvertsApiV218StampAndReassigned()
+        {
+            Assert.AreEqual("stp",
+                EnumTypeHelper.ConvertFieldKindToString(FieldKind.Stamp));
+            Assert.AreEqual(FieldKind.Stamp,
+                EnumTypeHelper.ConvertStringToFieldKind("stp"));
+
+            Assert.AreEqual("ra",
+                EnumTypeHelper.ConvertPacketStatusToString(PacketStatus.Reassigned));
+            Assert.AreEqual(PacketStatus.Reassigned,
+                EnumTypeHelper.ConvertStringToPacketStatus("ra"));
+        }
+
         #endregion
     }
 }

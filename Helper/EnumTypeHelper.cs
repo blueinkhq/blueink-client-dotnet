@@ -231,6 +231,7 @@ namespace Blueink.Client.Net.v2.Helper
                 case FieldKind.Dropdown: result = "sel"; break;
                 case FieldKind.ESignature: result = "sig"; break;
                 case FieldKind.SigningDate: result = "tms"; break;
+                case FieldKind.Stamp: result = "stp"; break;
                 case FieldKind.MultilineText: result = "txt"; break;
                 case FieldKind.SignerName: result = "snm"; break;
             }
@@ -265,6 +266,8 @@ namespace Blueink.Client.Net.v2.Helper
                 kind = FieldKind.ESignature;
             else if (value.Equals("tms", StringComparison.CurrentCultureIgnoreCase))
                 kind = FieldKind.SigningDate;
+            else if (value.Equals("stp", StringComparison.CurrentCultureIgnoreCase))
+                kind = FieldKind.Stamp;
             else if (value.Equals("txt", StringComparison.CurrentCultureIgnoreCase))
                 kind = FieldKind.MultilineText;
             else if (value.Equals("snm", StringComparison.CurrentCultureIgnoreCase))
@@ -388,6 +391,7 @@ namespace Blueink.Client.Net.v2.Helper
                 case PacketStatus.Expired: result = "ex"; break;
                 case PacketStatus.Complete: result = "co"; break;
                 case PacketStatus.Failed: result = "fa"; break;
+                case PacketStatus.Reassigned: result = "ra"; break;
             }
             return result;
         }
@@ -414,6 +418,8 @@ namespace Blueink.Client.Net.v2.Helper
                 status = PacketStatus.Complete;
             else if (value.Equals("fa", StringComparison.CurrentCultureIgnoreCase))
                 status = PacketStatus.Failed;
+            else if (value.Equals("ra", StringComparison.CurrentCultureIgnoreCase))
+                status = PacketStatus.Reassigned;
 
             return status;
         }
