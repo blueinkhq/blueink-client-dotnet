@@ -54,6 +54,12 @@ namespace Blueink.Client.Net.v2.Model
         BundleCancelled,
         [EnumMember(Value = "bundle_signer_reassigned")]
         BundleSignerReassigned,
+        [EnumMember(Value = "doc_template_created")]
+        DocTemplateCreated,
+        [EnumMember(Value = "doc_template_updated")]
+        DocTemplateUpdated,
+        [EnumMember(Value = "doc_template_deleted")]
+        DocTemplateDeleted,
         [EnumMember(Value = "packet_viewed")]
         PacketViewed,
         [EnumMember(Value = "packet_complete")]

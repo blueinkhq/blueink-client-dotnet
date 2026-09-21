@@ -716,6 +716,11 @@ namespace Blueink.Client.Net.v2.RequestModel
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
         public virtual IDictionary<string, object> Metadata { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("allowed_data_flow_tags",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual IList<string> AllowedDataFlowTags { get; set; }
     }
 
     /// <summary>

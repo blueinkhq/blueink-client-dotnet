@@ -217,7 +217,7 @@ using (var client = new BlueinkService())
 | --- | --- |
 | `BundleResource` | List, retrieve, create, cancel, expire, list events, list files, list data, add tags, remove tags, create from envelope templates |
 | `PacketResource` | Retrieve, update, send reminder, create embedded signing URL, retrieve certificate of evidence |
-| `TemplateResource` | List and retrieve document templates and envelope templates |
+| `TemplateResource` | List, retrieve, update metadata, delete, and create template preparation sessions |
 | `PersonResource` | List, retrieve, create, update, partially update, delete |
 | `WebhookResource` | List, retrieve, create, update, partially update, delete, manage headers, inspect deliveries and events, manage webhook secrets |
 | `RateLimitResource` | Check current API rate limit status |

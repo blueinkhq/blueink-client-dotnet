@@ -235,11 +235,23 @@ namespace Blueink.Client.Net.v2.Tests
                 EnumTypeHelper.ConvertEventTypeToString(EventType.BundleSignerReassigned));
             Assert.AreEqual("packet_declined",
                 EnumTypeHelper.ConvertEventTypeToString(EventType.PacketDeclined));
+            Assert.AreEqual("doc_template_created",
+                EnumTypeHelper.ConvertEventTypeToString(EventType.DocTemplateCreated));
+            Assert.AreEqual("doc_template_updated",
+                EnumTypeHelper.ConvertEventTypeToString(EventType.DocTemplateUpdated));
+            Assert.AreEqual("doc_template_deleted",
+                EnumTypeHelper.ConvertEventTypeToString(EventType.DocTemplateDeleted));
 
             Assert.AreEqual(EventType.BundleSignerReassigned,
                 EnumTypeHelper.ConvertStringToEventType("bundle_signer_reassigned"));
             Assert.AreEqual(EventType.PacketDeclined,
                 EnumTypeHelper.ConvertStringToEventType("packet_declined"));
+            Assert.AreEqual(EventType.DocTemplateCreated,
+                EnumTypeHelper.ConvertStringToEventType("doc_template_created"));
+            Assert.AreEqual(EventType.DocTemplateUpdated,
+                EnumTypeHelper.ConvertStringToEventType("doc_template_updated"));
+            Assert.AreEqual(EventType.DocTemplateDeleted,
+                EnumTypeHelper.ConvertStringToEventType("doc_template_deleted"));
         }
 
         [Test]
