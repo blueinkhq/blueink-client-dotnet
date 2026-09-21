@@ -60,6 +60,41 @@ namespace Blueink.Client.Net.v2.Tests
             }
         }
 
+        [Test]
+        public void CreateTemplatePreparationSession_SerializesAllowedDataFlowTags()
+        {
+            using (var service = new BlueinkService(ValidApiKey))
+            {
+                var prep = new TemplatePreparationSessionRequest
+                {
+                    AllowedDataFlowTags = new List<string> { "customer_name", "acme:*" }
+                };
+                var request = service.TemplateResource.CreateTemplatePreparationSession(prep);
+
+                var json = request.BuildJsonRequestBody();
+
+                Assert.That(json, Does.Contain("\"allowed_data_flow_tags\""));
+                Assert.That(json, Does.Contain("\"customer_name\""));
+                Assert.That(json, Does.Contain("\"acme:*\""));
+            }
+        }
+
+        #endregion
+
+        #region DeleteTemplate
+
+        [Test]
+        public void DeleteTemplate_ReturnsRequest_WithCorrectRestPathAndMethod()
+        {
+            using (var service = new BlueinkService(ValidApiKey))
+            {
+                var request = service.TemplateResource.DeleteTemplate("tmpl-1");
+
+                Assert.AreEqual("templates/tmpl-1/", request.RestPath);
+                Assert.AreEqual("delete", request.HttpMethod);
+            }
+        }
+
         #endregion
 
         #region UpdateTemplateMetadata (PATCH)

@@ -391,6 +391,47 @@ namespace Blueink.Client.Net.v2.Resource
         }
 
         /// <summary>
+        /// Soft-deletes a Document Template (DELETE /templates/{id}/).
+        /// The API disables the template and removes it from account libraries
+        /// (HTTP 204). Globally shared templates cannot be deleted (HTTP 403).
+        /// </summary>
+        public virtual DeleteTemplateRequest DeleteTemplate(string templateId)
+        {
+            return new DeleteTemplateRequest(service, templateId);
+        }
+
+        public class DeleteTemplateRequest : BlueinkClientBaseService<Blueink.Client.Net.v2.ResponseModel.DocumentTemplate>
+        {
+            public DeleteTemplateRequest(IClientService service, string templateId)
+                : base(service)
+            {
+                TemplateId = templateId;
+            }
+
+            public virtual string TemplateId { get; private set; }
+
+            public override string BuildUriRequest()
+            {
+                return RestPath;
+            }
+
+            public override string MethodName
+            {
+                get { return "delete"; }
+            }
+
+            public override string RestPath
+            {
+                get { return String.Format("templates/{0}/", TemplateId); }
+            }
+
+            public override string HttpMethod
+            {
+                get { return "delete"; }
+            }
+        }
+
+        /// <summary>
         /// Creates an embedded document template preparation session.
         /// </summary>
         public virtual CreateTemplatePreparationSessionRequest CreateTemplatePreparationSession(
