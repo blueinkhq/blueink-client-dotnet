@@ -1,8 +1,10 @@
 using Blueink.Client.Net.v2.Helper;
 using Blueink.Client.Net.v2.RequestModel;
 using Blueink.Client.Net.v2.Serializer;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 
 namespace Blueink.Client.Net.v2.Tests
 {
@@ -95,6 +97,52 @@ namespace Blueink.Client.Net.v2.Tests
             // Assert - NullValueHandling.Ignore omits the property when null
             Assert.That(json, Does.Not.Contain("expires"));
             Assert.IsNull(bundle.Expires);
+        }
+
+        #endregion
+
+        #region APIv2 2.19 surface
+
+        [Test]
+        public void DocumentRef_SerializesAdobeFieldAssignments()
+        {
+            var doc = DocumentRef.Create("doc-1");
+            doc.AdobeFieldAssignments = new Dictionary<string, string>
+            {
+                { "Signature1", "signer-1" }
+            };
+
+            var json = JsonConvert.SerializeObject(doc);
+            StringAssert.Contains("adobe_field_assignments", json);
+            StringAssert.Contains("Signature1", json);
+            StringAssert.Contains("signer-1", json);
+        }
+
+        [Test]
+        public void ResponseBundle_DeserializesOwnerAndMaxReminders()
+        {
+            const string json = @"{
+                ""id"": ""abc123"",
+                ""max_reminders"": 3,
+                ""owner_name"": ""Ada Lovelace"",
+                ""owner_email"": ""ada@example.com"",
+                ""packets"": [],
+                ""documents"": []
+            }";
+
+            var bundle = JsonConvert.DeserializeObject<Blueink.Client.Net.v2.ResponseModel.Bundle>(json);
+
+            Assert.AreEqual(3, bundle.MaxReminders);
+            Assert.AreEqual("Ada Lovelace", bundle.OwnerName);
+            Assert.AreEqual("ada@example.com", bundle.OwnerEmail);
+        }
+
+        [Test]
+        public void ResponseBundle_DeserializesNullMaxReminders()
+        {
+            const string json = @"{ ""id"": ""abc123"", ""max_reminders"": null }";
+            var bundle = JsonConvert.DeserializeObject<Blueink.Client.Net.v2.ResponseModel.Bundle>(json);
+            Assert.IsNull(bundle.MaxReminders);
         }
 
         #endregion

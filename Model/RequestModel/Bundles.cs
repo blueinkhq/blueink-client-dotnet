@@ -435,6 +435,10 @@ namespace Blueink.Client.Net.v2.RequestModel
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public virtual string ConvertedAdobeFieldsTo { get; set; }
+        [Newtonsoft.Json.JsonProperty("adobe_field_assignments",
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public virtual IDictionary<string, string> AdobeFieldAssignments { get; set; }
         [Newtonsoft.Json.JsonProperty("html_fields_mode",
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore,
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
