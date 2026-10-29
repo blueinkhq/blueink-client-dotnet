@@ -23,6 +23,7 @@ namespace Blueink.Client.Net.v2.Helper
         public string SigningBrand { get; set; }
         public BundleStatus? Status { get; set; }
         public DateTime? Expires { get; set; }
+        public bool? AllowDeclineToSign { get; set; }
         public bool IsTest { get; set; }
         public bool InOrder { get; set; }
         public EnvelopeTemplate EnvelopeTemplate { get; set; }
@@ -309,6 +310,7 @@ namespace Blueink.Client.Net.v2.Helper
             bundle_out.SigningBrand = this.SigningBrand;
             bundle_out.Status = this.Status;
             bundle_out.Expires = this.Expires;
+            bundle_out.AllowDeclineToSign = this.AllowDeclineToSign;
 
             return bundle_out;
         }
@@ -343,11 +345,15 @@ namespace Blueink.Client.Net.v2.Helper
             bundle_out.SigningBrand = this.SigningBrand;
             bundle_out.Status = this.Status;
             bundle_out.Expires = this.Expires;
+            bundle_out.AllowDeclineToSign = this.AllowDeclineToSign;
 
+            var fieldValues = this.EnvelopeTemplate.FieldValues;
             bundle_out.EnvelopeTemplate = new EnvelopeTemplate
             {
                 TemplateId = this.EnvelopeTemplate.TemplateId,
-                FieldValues = new List<EnvelopeTemplateFieldValue>(this.EnvelopeTemplate.FieldValues)
+                FieldValues = fieldValues == null
+                    ? null
+                    : new List<EnvelopeTemplateFieldValue>(fieldValues)
             };
 
             return bundle_out;

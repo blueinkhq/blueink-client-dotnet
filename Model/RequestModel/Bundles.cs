@@ -601,6 +601,10 @@ namespace Blueink.Client.Net.v2.RequestModel
         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
         public virtual IDictionary<string, object> TagValues { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("allow_decline_to_sign",
+        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+        DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual bool? AllowDeclineToSign { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("packets")]
         public virtual IList<Packet> Packets { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("documents")]
@@ -683,6 +687,35 @@ namespace Blueink.Client.Net.v2.RequestModel
 
         [Newtonsoft.Json.JsonPropertyAttribute("allow_search_signers")]
         public virtual bool AllowSearchSigners { get; set; } = false;
+
+        [Newtonsoft.Json.JsonPropertyAttribute("allow_add_signers")]
+        public virtual bool AllowAddSigners { get; set; } = true;
+
+        [Newtonsoft.Json.JsonPropertyAttribute("send_button",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual SendButton SendButton { get; set; }
+    }
+
+    /// <summary>
+    /// Optional appearance for the embedded preparation Send button (APIv2 2.21.0+).
+    /// </summary>
+    public class SendButton
+    {
+        [Newtonsoft.Json.JsonPropertyAttribute("text",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string Text { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("color",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string Color { get; set; }
+
+        [Newtonsoft.Json.JsonPropertyAttribute("background_color",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual string BackgroundColor { get; set; }
     }
 
     /// <summary>
@@ -765,6 +798,10 @@ namespace Blueink.Client.Net.v2.RequestModel
          NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
          DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
         public virtual bool? AllowChainedSignerReassign { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("allow_decline_to_sign",
+         NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+         DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Ignore)]
+        public virtual bool? AllowDeclineToSign { get; set; }
     }
 
     /// <summary>

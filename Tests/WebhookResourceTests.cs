@@ -252,6 +252,14 @@ namespace Blueink.Client.Net.v2.Tests
                 EnumTypeHelper.ConvertStringToEventType("doc_template_updated"));
             Assert.AreEqual(EventType.DocTemplateDeleted,
                 EnumTypeHelper.ConvertStringToEventType("doc_template_deleted"));
+            Assert.AreEqual("packet_sent",
+                EnumTypeHelper.ConvertEventTypeToString(EventType.PacketSent));
+            Assert.AreEqual("bundle_expired",
+                EnumTypeHelper.ConvertEventTypeToString(EventType.BundleExpired));
+            Assert.AreEqual(EventType.PacketSent,
+                EnumTypeHelper.ConvertStringToEventType("packet_sent"));
+            Assert.AreEqual(EventType.BundleExpired,
+                EnumTypeHelper.ConvertStringToEventType("bundle_expired"));
         }
 
         [Test]

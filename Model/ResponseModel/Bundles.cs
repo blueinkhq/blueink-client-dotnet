@@ -193,6 +193,8 @@ namespace Blueink.Client.Net.v2.ResponseModel
         public virtual bool? AllowSignerReassign { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("allow_chained_signer_reassign")]
         public virtual bool? AllowChainedSignerReassign { get; set; }
+        [Newtonsoft.Json.JsonPropertyAttribute("allow_decline_to_sign")]
+        public virtual bool? AllowDeclineToSign { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("max_reminders")]
         public virtual int? MaxReminders { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("owner_name")]
