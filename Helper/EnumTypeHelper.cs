@@ -76,10 +76,12 @@ namespace Blueink.Client.Net.v2.Helper
                 case EventType.BundleDocsReady: result = "bundle_docs_ready"; break;
                 case EventType.BundleError: result = "bundle_error"; break;
                 case EventType.BundleCancelled: result = "bundle_cancelled"; break;
+                case EventType.BundleExpired: result = "bundle_expired"; break;
                 case EventType.BundleSignerReassigned: result = "bundle_signer_reassigned"; break;
                 case EventType.DocTemplateCreated: result = "doc_template_created"; break;
                 case EventType.DocTemplateUpdated: result = "doc_template_updated"; break;
                 case EventType.DocTemplateDeleted: result = "doc_template_deleted"; break;
+                case EventType.PacketSent: result = "packet_sent"; break;
                 case EventType.PacketViewed: result = "packet_viewed"; break;
                 case EventType.PacketComplete: result = "packet_complete"; break;
                 case EventType.PacketDeclined: result = "packet_declined"; break;
@@ -103,6 +105,8 @@ namespace Blueink.Client.Net.v2.Helper
                 type = EventType.BundleError;
             else if (value.Equals("bundle_cancelled", StringComparison.CurrentCultureIgnoreCase))
                 type = EventType.BundleCancelled;
+            else if (value.Equals("bundle_expired", StringComparison.CurrentCultureIgnoreCase))
+                type = EventType.BundleExpired;
             else if (value.Equals("bundle_signer_reassigned", StringComparison.CurrentCultureIgnoreCase))
                 type = EventType.BundleSignerReassigned;
             else if (value.Equals("doc_template_created", StringComparison.CurrentCultureIgnoreCase))
@@ -111,6 +115,8 @@ namespace Blueink.Client.Net.v2.Helper
                 type = EventType.DocTemplateUpdated;
             else if (value.Equals("doc_template_deleted", StringComparison.CurrentCultureIgnoreCase))
                 type = EventType.DocTemplateDeleted;
+            else if (value.Equals("packet_sent", StringComparison.CurrentCultureIgnoreCase))
+                type = EventType.PacketSent;
             else if (value.Equals("packet_viewed", StringComparison.CurrentCultureIgnoreCase))
                 type = EventType.PacketViewed;
             else if (value.Equals("packet_complete", StringComparison.CurrentCultureIgnoreCase))

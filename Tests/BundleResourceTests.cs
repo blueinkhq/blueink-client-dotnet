@@ -99,6 +99,7 @@ namespace Blueink.Client.Net.v2.Tests
 
                 Assert.That(json, Does.Contain("\"upload_pdf\":true"));
                 Assert.That(json, Does.Contain("\"allow_search_signers\":false"));
+                Assert.That(json, Does.Contain("\"allow_add_signers\":true"));
             }
         }
 
@@ -120,6 +121,7 @@ namespace Blueink.Client.Net.v2.Tests
             Assert.That(json, Does.Not.Contain("folder_ids"));
             Assert.That(json, Does.Not.Contain("redirect_url"));
             Assert.That(json, Does.Not.Contain("draft_bundle"));
+            Assert.That(json, Does.Not.Contain("send_button"));
         }
 
         [Test]
@@ -129,7 +131,14 @@ namespace Blueink.Client.Net.v2.Tests
             var prep = new PreparationSessionRequest
             {
                 TemplateIds = new List<string> { "tmpl-1" },
-                RedirectUrl = "https://example.com/callback"
+                RedirectUrl = "https://example.com/callback",
+                AllowAddSigners = false,
+                SendButton = new SendButton
+                {
+                    Text = "Submit",
+                    Color = "#ffffff",
+                    BackgroundColor = "#111827"
+                }
             };
 
             // Act
@@ -138,6 +147,10 @@ namespace Blueink.Client.Net.v2.Tests
             // Assert
             Assert.That(json, Does.Contain("\"template_ids\":[\"tmpl-1\"]"));
             Assert.That(json, Does.Contain("\"redirect_url\":\"https://example.com/callback\""));
+            Assert.That(json, Does.Contain("\"allow_add_signers\":false"));
+            Assert.That(json, Does.Contain("\"send_button\""));
+            Assert.That(json, Does.Contain("\"text\":\"Submit\""));
+            Assert.That(json, Does.Contain("\"background_color\":\"#111827\""));
         }
 
         #endregion

@@ -52,6 +52,8 @@ namespace Blueink.Client.Net.v2.Model
         BundleError,
         [EnumMember(Value = "bundle_cancelled")]
         BundleCancelled,
+        [EnumMember(Value = "bundle_expired")]
+        BundleExpired,
         [EnumMember(Value = "bundle_signer_reassigned")]
         BundleSignerReassigned,
         [EnumMember(Value = "doc_template_created")]
@@ -60,6 +62,8 @@ namespace Blueink.Client.Net.v2.Model
         DocTemplateUpdated,
         [EnumMember(Value = "doc_template_deleted")]
         DocTemplateDeleted,
+        [EnumMember(Value = "packet_sent")]
+        PacketSent,
         [EnumMember(Value = "packet_viewed")]
         PacketViewed,
         [EnumMember(Value = "packet_complete")]

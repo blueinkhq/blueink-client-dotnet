@@ -9,7 +9,7 @@ using System.Collections.Generic;
 namespace Blueink.Client.Net.v2.Tests
 {
     /// <summary>
-    /// Unit tests for BundleHelper covering HTML-backed documents and the Expires field.
+    /// Unit tests for BundleHelper covering HTML-backed documents, Expires, and AllowDeclineToSign.
     /// </summary>
     [TestFixture]
     public class BundleHelperTests
@@ -97,6 +97,73 @@ namespace Blueink.Client.Net.v2.Tests
             // Assert - NullValueHandling.Ignore omits the property when null
             Assert.That(json, Does.Not.Contain("expires"));
             Assert.IsNull(bundle.Expires);
+        }
+
+        #endregion
+
+        #region AllowDeclineToSign Tests
+
+        [Test]
+        public void CompileBundle_PropagatesAllowDeclineToSignToBundle()
+        {
+            var helper = new BundleHelper { AllowDeclineToSign = false };
+
+            var bundle = helper.CompileBundle();
+
+            Assert.AreEqual(false, bundle.AllowDeclineToSign);
+        }
+
+        [Test]
+        public void CompileBundle_WithAllowDeclineToSign_Serializes()
+        {
+            var helper = new BundleHelper { AllowDeclineToSign = false };
+            var bundle = helper.CompileBundle();
+
+            var json = NewtonsoftJsonSerializer.Instance.Serialize(bundle);
+
+            Assert.That(json, Does.Contain("\"allow_decline_to_sign\":false"));
+        }
+
+        [Test]
+        public void CompileBundle_WithoutAllowDeclineToSign_Omits()
+        {
+            var helper = new BundleHelper();
+            var bundle = helper.CompileBundle();
+
+            var json = NewtonsoftJsonSerializer.Instance.Serialize(bundle);
+
+            Assert.That(json, Does.Not.Contain("allow_decline_to_sign"));
+            Assert.IsNull(bundle.AllowDeclineToSign);
+        }
+
+        [Test]
+        public void CreateBundleForTemplate_PropagatesAllowDeclineToSign()
+        {
+            var helper = new BundleHelper { AllowDeclineToSign = false };
+            helper.SetEnvelopeTemplate("T-test", new Dictionary<string, string>());
+
+            var bundle = helper.CreateBundleForTemplate();
+
+            Assert.AreEqual(false, bundle.AllowDeclineToSign);
+            Assert.AreEqual("T-test", bundle.EnvelopeTemplate.TemplateId);
+            Assert.IsNull(bundle.EnvelopeTemplate.FieldValues);
+        }
+
+        [Test]
+        public void CreateBundleForTemplate_CopiesFieldValuesAndAllowDeclineToSign()
+        {
+            var helper = new BundleHelper { AllowDeclineToSign = true };
+            helper.SetEnvelopeTemplate("T-test", new Dictionary<string, string>
+            {
+                { "signer_name", "Ada" }
+            });
+
+            var bundle = helper.CreateBundleForTemplate();
+
+            Assert.AreEqual(true, bundle.AllowDeclineToSign);
+            Assert.AreEqual(1, bundle.EnvelopeTemplate.FieldValues.Count);
+            Assert.AreEqual("signer_name", bundle.EnvelopeTemplate.FieldValues[0].Key);
+            Assert.AreEqual("Ada", bundle.EnvelopeTemplate.FieldValues[0].InitialValue);
         }
 
         #endregion
