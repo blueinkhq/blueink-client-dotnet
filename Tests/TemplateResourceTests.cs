@@ -1,4 +1,6 @@
 using Blueink.Client.Net.v2.RequestModel;
+using Blueink.Client.Net.v2.ResponseModel;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -122,6 +124,28 @@ namespace Blueink.Client.Net.v2.Tests
                 Assert.Throws<BlueinkValidationException>(
                     () => service.TemplateResource.UpdateTemplateMetadata("tmpl-1", null));
             }
+        }
+
+        #endregion
+
+        #region DocumentTemplate is_valid (APIv2 2.23.0)
+
+        [Test]
+        public void DocumentTemplate_DeserializesIsValid()
+        {
+            var present = JsonConvert.DeserializeObject<DocumentTemplate>(
+                "{\"id\":\"tmpl-1\",\"is_valid\":true}");
+            Assert.IsTrue(present.IsValid.HasValue);
+            Assert.IsTrue(present.IsValid.Value);
+
+            var invalid = JsonConvert.DeserializeObject<DocumentTemplate>(
+                "{\"id\":\"tmpl-1\",\"is_valid\":false}");
+            Assert.IsTrue(invalid.IsValid.HasValue);
+            Assert.IsFalse(invalid.IsValid.Value);
+
+            var omitted = JsonConvert.DeserializeObject<DocumentTemplate>(
+                "{\"id\":\"tmpl-1\"}");
+            Assert.IsFalse(omitted.IsValid.HasValue);
         }
 
         #endregion

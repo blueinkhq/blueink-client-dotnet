@@ -62,6 +62,10 @@ namespace Blueink.Client.Net.v2.ResponseModel
         public virtual string Id { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("is_shared")]
         public virtual bool IsShared { get; set; }
+        // Read-only on GET /templates/ and GET /templates/{id}/ (APIv2 2.23.0+).
+        // Nullable so a response that omits the field stays omitted.
+        [Newtonsoft.Json.JsonPropertyAttribute("is_valid")]
+        public virtual bool? IsValid { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("name")]
         public virtual string Name { get; set; }
         [Newtonsoft.Json.JsonPropertyAttribute("file_url")]
